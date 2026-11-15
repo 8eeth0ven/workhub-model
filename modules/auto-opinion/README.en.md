@@ -4,7 +4,7 @@
 
 Bring public automotive headlines, relevant trends and source health into a local dashboard that can connect to Workhub.
 
-Light is the default: white content, light gray surfaces and dark text, sharing Workhub’s compact layout and palette system. Existing saved color preferences are preserved.
+Workhub’s existing Codex Light is the default: white content, light gray surfaces and dark text, sharing Workhub’s compact layout and palette system. Existing saved color preferences are preserved.
 
 ## Use
 
@@ -45,3 +45,5 @@ Give your agent the [daily brief prompt](prompts/daily-brief.en.md). It requests
 The module does not create a schedule. Daily 09:00 is an optional arrangement that must be explicitly configured in your own automation tool.
 
 See [collection details](docs/collector.en.md). The repository's [module format](https://github.com/8eeth0ven/workhub-model/blob/main/docs/modules.en.md) describes distribution boundaries; the standalone ZIP can be used without those repository documents.
+
+For Workhub versions with manual admission, select this module directory in Add project after registering the site. Admission and following the portal palette are explicit user choices; registration alone does not enable either.

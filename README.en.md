@@ -17,7 +17,7 @@ Collect public automotive headlines and relevant trending topics. Review negativ
 
 ![Portable module workflow; original illustration, not a product screenshot](docs/images/auto-opinion-flow.svg)
 
-Light is the default: white content, light gray surfaces and dark text, sharing Workhub’s compact layout and palette system. Existing saved color preferences are preserved.
+Workhub’s existing Codex Light is the default: white content, light gray surfaces and dark text, sharing Workhub’s compact layout and palette system. Existing saved color preferences are preserved.
 
 ## Download and try
 
@@ -51,7 +51,7 @@ python3 manage.py connect auto-opinion \
   --installed ../workhub-local/auto-opinion --workhub ../workhub
 ```
 
-Build the dashboard first. Connecting registers the project and static site and adds project-level required-reading entries. It does not start collection or create an automation.
+Build the dashboard first. Connecting registers the project and static site and adds project-level required-reading entries. It does not start collection or create an automation. In Workhub versions with manual workspace admission, select the module directory in Add project and add it yourself; registration alone does not admit it.
 
 See the [module guide](modules/auto-opinion/README.en.md) and [module format](docs/modules.en.md).
 

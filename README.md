@@ -17,7 +17,7 @@
 
 ![模块的可移植工作流，原创功能示意，非真实界面截图](docs/images/auto-opinion-flow.svg)
 
-默认采用明亮风格：白色内容、浅灰底色、深色文字，与 Workhub 共用配色和紧凑排版；已有保存的配色偏好继续保留。
+默认采用 Workhub 已有的 Codex 明亮风格：白色内容、浅灰底色、深色文字，与 Workhub 共用配色和紧凑排版；已有保存的配色偏好继续保留。
 
 ## 下载与试用
 
@@ -51,7 +51,7 @@ python3 manage.py connect auto-opinion \
   --installed ../workhub-local/auto-opinion --workhub ../workhub
 ```
 
-先生成看板再连接。连接会登记项目和静态网站、追加该项目的必读入口；不会启动采集或创建自动化。
+先生成看板再连接。连接会登记项目和静态网站、追加该项目的必读入口；不会启动采集或创建自动化。新版 Workhub 采用手动入库时，还需由你在「接入项目」中选择该模块目录并加入中控；登记成功不等于已经加入。
 
 模块说明见 [车圈舆情监控](modules/auto-opinion/README.md)，新模块格式与打包方式见 [模块协议](docs/modules.md)。
 
