@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="1040" viewBox="0 0 750 1040" role="img" aria-labelledby="title desc">
+<title id="title">每四小时，先看重点更新</title><desc id="desc">原创流程示意：采集AI公开消息、保留成功基线、比较新增与变化、输出简报和明亮看板。非实际界面截图。</desc>
+<rect width="750" height="1040" fill="#f7f7f8"/>
+<g font-family="PingFang SC,Microsoft YaHei,Arial,sans-serif">
+<text x="44" y="48" font-size="17" letter-spacing="1.4" font-weight="600" fill="#4a4b50">WORKHUB MODEL · AI 产品舆情</text>
+<text x="44" y="108" font-size="34" font-weight="700" fill="#202123">每四小时，先看重点更新</text><text x="44" y="145" font-size="22" fill="#62646b">旧闻少重复，失败保留真实状态</text>
+<g fill="#fff" stroke="#dedee1"><rect x="44" y="183" width="662" height="148" rx="18"/><rect x="44" y="372" width="662" height="148" rx="18"/><rect x="44" y="561" width="662" height="168" rx="18"/><rect x="44" y="770" width="662" height="158" rx="18"/></g>
+<g fill="#efeff1"><circle cx="85" cy="224" r="22"/><circle cx="85" cy="413" r="22"/><circle cx="85" cy="602" r="22"/><circle cx="85" cy="811" r="22"/></g>
+<g fill="#4a4b50" font-size="17" font-weight="600" text-anchor="middle"><text x="85" y="230">01</text><text x="85" y="419">02</text><text x="85" y="608">03</text><text x="85" y="817">04</text></g>
+<g fill="#202123" font-size="28" font-weight="600"><text x="122" y="233">拉取公开标题与来源</text><text x="122" y="422">保留上次成功基线</text><text x="122" y="611">标记新增、变化与重复</text><text x="122" y="820">输出简报，刷新明亮看板</text></g>
+<g fill="#62646b" font-size="22"><text x="122" y="278">国内、国际、硬件、言论与热搜</text><text x="122" y="467">网络失败不会推进成功基线</text><text x="122" y="656">来源掉线不当作事件消失</text><text x="122" y="697">首次运行明确说明没有比较基线</text><text x="122" y="865">先负面，再按 AI 分区看新增与变化</text><text x="122" y="902" font-size="19">定时任务需由你显式启用</text></g>
+<g fill="none" stroke="#b8bac0" stroke-width="2"><path d="M375 331V357m-7-7 7 7 7-7"/><path d="M375 520V546m-7-7 7 7 7-7"/><path d="M375 729V755m-7-7 7 7 7-7"/></g>
+<text x="44" y="997" font-size="17" fill="#666870">原创功能示意 · 不含真实日报或本机配置</text>
+</g></svg>

@@ -15,6 +15,19 @@
         "zh-CN": "采集公开汽车新闻与热搜，生成带来源状态的日报和本地看板。",
         "en": "Collect public automotive headlines and trends, then build a digest and local dashboard with source status."
       }
+    },
+    {
+      "id": "ai-opinion",
+      "version": "0.1.0",
+      "path": "modules/ai-opinion",
+      "name": {
+        "zh-CN": "AI 产品舆情监控",
+        "en": "AI product opinion monitor"
+      },
+      "description": {
+        "zh-CN": "采集公开AI产品、硬件和人物言论，生成带增量与来源状态的日报和本地看板。",
+        "en": "Collect public AI product, hardware and speaker headlines, with incremental briefs, source health and a local dashboard."
+      }
     }
   ]
 }

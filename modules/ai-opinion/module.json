@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "ai-opinion",
+  "version": "0.1.0",
+  "kind": "workhub-module",
+  "name": {
+    "zh-CN": "AI 产品舆情监控",
+    "en": "AI product opinion monitor"
+  },
+  "python": ">=3.10",
+  "entrypoints": {
+    "collect": "bin/collect.py",
+    "build": "bin/build_data.py"
+  },
+  "site": {
+    "entry": "site/index.html",
+    "layout": "radar",
+    "generated": true
+  },
+  "files": [
+    "module.json",
+    "README.md",
+    "README.en.md",
+    "bin/collect.py",
+    "bin/build_data.py",
+    "config.example.json",
+    "site.template.html",
+    "site/design-system.css",
+    "site/embedded-theme.js",
+    "docs/collector.md",
+    "docs/collector.en.md",
+    "prompts/daily-brief.md",
+    "prompts/daily-brief.en.md",
+    "prompts/automation-card.md",
+    "prompts/automation-card.en.md"
+  ],
+  "runtime_excluded": [
+    "data/",
+    "logs/",
+    "site/index.html",
+    "module-install.json",
+    "config.json",
+    "data/previous.json",
+    "data/delta.json",
+    "data/增量简报.md",
+    "data/seen-index.json",
+    "data/.collection-state.json",
+    "data/.collection-mode.json"
+  ],
+  "installation": {
+    "executes_code": false,
+    "collects_news": false,
+    "creates_automations": false,
+    "updates_global_agent_rules": false
+  }
+}
