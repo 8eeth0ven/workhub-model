@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "auto-opinion",
+  "version": "0.1.0",
+  "kind": "workhub-module",
+  "name": {
+    "zh-CN": "车圈舆情监控",
+    "en": "Automotive opinion monitor"
+  },
+  "python": ">=3.10",
+  "entrypoints": {
+    "collect": "bin/collect.py",
+    "build": "bin/build_data.py"
+  },
+  "site": {
+    "entry": "site/index.html",
+    "layout": "radar",
+    "generated": true
+  },
+  "files": [
+    "module.json",
+    "README.md",
+    "README.en.md",
+    "bin/collect.py",
+    "bin/build_data.py",
+    "config.example.json",
+    "site.template.html",
+    "site/design-system.css",
+    "site/embedded-theme.js",
+    "docs/collector.md",
+    "docs/collector.en.md",
+    "prompts/daily-brief.md",
+    "prompts/daily-brief.en.md"
+  ],
+  "runtime_excluded": [
+    "data/",
+    "logs/",
+    "site/index.html",
+    "module-install.json",
+    "config.json"
+  ],
+  "installation": {
+    "executes_code": false,
+    "collects_news": false,
+    "creates_automations": false,
+    "updates_global_agent_rules": false
+  }
+}

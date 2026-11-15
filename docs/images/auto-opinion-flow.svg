@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="750" height="1040" viewBox="0 0 750 1040" role="img" aria-labelledby="title desc">
+<title id="title">下载一个模块，多一个可用功能</title><desc id="desc">原创流程示意：选择安装、配置采集、核对来源、查看简报并接入Workhub。非实际界面截图。</desc>
+<rect width="750" height="1040" fill="#f7f7f8"/>
+<g font-family="PingFang SC,Microsoft YaHei,Arial,sans-serif">
+<text x="44" y="48" font-size="17" letter-spacing="1.4" font-weight="600" fill="#4a4b50">WORKHUB MODEL · 车圈舆情</text>
+<text x="44" y="108" font-size="34" font-weight="700" fill="#202123">下载一个模块，多一个可用功能</text><text x="44" y="145" font-size="22" fill="#62646b">源码、提示词与看板，一起带走</text>
+<g fill="#fff" stroke="#dedee1"><rect x="44" y="183" width="662" height="148" rx="18"/><rect x="44" y="372" width="662" height="148" rx="18"/><rect x="44" y="561" width="662" height="168" rx="18"/><rect x="44" y="770" width="662" height="158" rx="18"/></g>
+<g fill="#efeff1"><circle cx="85" cy="224" r="22"/><circle cx="85" cy="413" r="22"/><circle cx="85" cy="602" r="22"/><circle cx="85" cy="811" r="22"/></g>
+<g fill="#4a4b50" font-size="17" font-weight="600" text-anchor="middle"><text x="85" y="230">01</text><text x="85" y="419">02</text><text x="85" y="608">03</text><text x="85" y="817">04</text></g>
+<g fill="#202123" font-size="28" font-weight="600"><text x="122" y="233">选择模块，独立安装</text><text x="122" y="422">按自己的网络配置采集</text><text x="122" y="611">先检查来源有没有掉线</text><text x="122" y="820">生成简报，接进工作台</text></g>
+<g fill="#62646b" font-size="22"><text x="122" y="278">安装只复制文件，不会自动运行</text><text x="122" y="467">公开新闻与汽车热搜，失败分别记录</text><text x="122" y="656">失败、为空、旧数据，分别说明</text><text x="122" y="697">关键词只是线索，事实还要看原文</text><text x="122" y="865">负面线索在前，原网页正文保留空间</text><text x="122" y="902" font-size="19">每日运行需由你显式设置，不随安装开启</text></g>
+<g fill="none" stroke="#b8bac0" stroke-width="2"><path d="M375 331V357m-7-7 7 7 7-7"/><path d="M375 520V546m-7-7 7 7 7-7"/><path d="M375 729V755m-7-7 7 7 7-7"/></g>
+<text x="44" y="997" font-size="17" fill="#666870">原创功能示意 · 不含真实日报或本机配置</text>
+</g></svg>

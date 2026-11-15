@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/8eeth0ven/workhub-model",
+  "kind": "workhub-feature-modules",
+  "modules": [
+    {
+      "id": "auto-opinion",
+      "version": "0.1.0",
+      "path": "modules/auto-opinion",
+      "name": {
+        "zh-CN": "车圈舆情监控",
+        "en": "Automotive opinion monitor"
+      },
+      "description": {
+        "zh-CN": "采集公开汽车新闻与热搜，生成带来源状态的日报和本地看板。",
+        "en": "Collect public automotive headlines and trends, then build a digest and local dashboard with source status."
+      }
+    }
+  ]
+}

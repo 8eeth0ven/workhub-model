@@ -1,0 +1,10 @@
+{
+  "window_days": 3,
+  "timezone": "Asia/Shanghai",
+  "workers": 4,
+  "timeout_seconds": 15,
+  "retries": 1,
+  "proxy": "",
+  "proxy_fallback_direct": false,
+  "max_items_per_source": 25
+}

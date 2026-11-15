@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="510" viewBox="0 0 1200 510" role="img" aria-labelledby="title desc">
+<title id="title">车圈舆情，装进你的工作台</title><desc id="desc">Workhub Model 首个模块的原创功能示意：公开新闻、来源状态、本地看板与简报。非实际界面截图。</desc>
+<rect width="1200" height="510" fill="#f7f7f8"/><path d="M0 485 Q380 390 730 455 T1200 376 V510 H0Z" fill="#ededee"/>
+<g font-family="PingFang SC,Microsoft YaHei,Arial,sans-serif">
+<rect x="64" y="56" width="8" height="22" rx="4" fill="#6b6d73"/><text x="88" y="74" font-size="18" font-weight="600" letter-spacing="1.5" fill="#4a4b50">WORKHUB MODEL / 功能模块 01</text>
+<text x="64" y="211" font-size="58" font-weight="700" fill="#202123">车圈舆情</text><text x="64" y="294" font-size="54" font-weight="700" fill="#202123">装进你的工作台</text>
+<text x="68" y="358" font-size="24" fill="#62646b">公开新闻 · 风险线索 · 来源状态</text>
+<g fill="#fff" stroke="#dedee1"><rect x="705" y="110" width="150" height="62" rx="15"/><rect x="918" y="110" width="150" height="62" rx="15"/></g>
+<text x="780" y="150" text-anchor="middle" font-size="24" fill="#45464c">RSS 新闻</text><text x="993" y="150" text-anchor="middle" font-size="24" fill="#45464c">汽车热搜</text>
+<path d="M780 172V195L888 221 993 195V172" fill="none" stroke="#b8bac0" stroke-width="2"/>
+<rect x="750" y="222" width="275" height="88" rx="17" fill="#303137"/><text x="888" y="276" text-anchor="middle" font-size="29" font-weight="600" fill="#fff">本地车圈看板</text>
+<path d="M888 310V335H782V351M888 335H994V351" fill="none" stroke="#b8bac0" stroke-width="2"/>
+<g fill="#fff" stroke="#dedee1"><rect x="706" y="351" width="154" height="54" rx="12"/><rect x="918" y="351" width="154" height="54" rx="12"/></g>
+<text x="783" y="386" text-anchor="middle" font-size="22" fill="#45464c">每日简报</text><text x="995" y="386" text-anchor="middle" font-size="22" fill="#45464c">Workhub</text>
+<text x="68" y="466" font-size="17" fill="#666870">独立下载 · 本地运行 · 原创功能示意，非截图</text>
+</g></svg>
