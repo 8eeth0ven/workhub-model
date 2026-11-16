@@ -21,6 +21,7 @@
     "module.json",
     "README.md",
     "README.en.md",
+    "docs/overview.svg",
     "bin/collect.py",
     "bin/build_data.py",
     "config.example.json",
