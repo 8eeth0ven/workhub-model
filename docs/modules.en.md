@@ -52,3 +52,11 @@ The ZIP has an `auto-opinion/` top-level directory and includes only source, doc
 Define a version, entrypoints and explicit `files` list in `modules/<module-id>/module.json`, then add the matching version to the root `catalog.json`. IDs use lowercase letters, digits and hyphens. File lists reject directory globs, absolute paths, `..`, backslashes, symlinks and special files. Tests, collected data, logs, credential configuration and generated `index.html` files are also rejected.
 
 Review the actual files, configuration and images before release. The tool checks known personal paths, common tokens, private keys, credential-bearing URLs and local automation identifiers, but heuristics cannot identify every sensitive detail. Install a new version into a new directory and migrate personal configuration and data after review; this tool does not overwrite or automatically upgrade an existing installation.
+
+## Server modules
+
+For modules requiring backend persistence, explicitly start the local server using its README, then pass `--site-url http://127.0.0.1:8831/` to `connect`. This accepts loopback HTTP(S) URLs without credentials, queries or fragments. Connecting registers the site without starting it. Server modules require this option so static previews cannot be mistaken for writable backends.
+
+## Module interfaces
+
+Reuse shared design tokens and Codex Light. Prioritize content, common navigation and search; disclose secondary settings progressively instead of lining up controls and repeated notices. Organize content with typography, fine separators and a few light surfaces rather than a bordered card for every item. Expanded settings should push layout instead of covering text. Consolidate normal status while preserving failures, stale data, sources and evidence.

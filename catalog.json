@@ -41,6 +41,45 @@
         "zh-CN": "用七类研究卡、官方GPU目录报价和产业动态梳理算力投资问题，保守去重并保留来源与未知。",
         "en": "Explore seven value-chain stages, official GPU catalog quotes and industry signals with conservative deduplication, sources and unknowns."
       }
+    },
+    {
+      "id": "coding-graph",
+      "version": "0.1.0",
+      "path": "modules/coding-graph",
+      "name": {
+        "zh-CN": "代码与图检索",
+        "en": "Code & graph learning"
+      },
+      "description": {
+        "zh-CN": "跟踪AI原生工程发布与17份深入资料，结合本机Python静态关系证据设计验证。",
+        "en": "Track AI-native engineering releases and 17 advanced primary resources, with local Python static graph evidence for validation."
+      }
+    },
+    {
+      "id": "english-slices",
+      "version": "0.1.0",
+      "path": "modules/english-slices",
+      "name": {
+        "zh-CN": "英语成片学",
+        "en": "English in slices"
+      },
+      "description": {
+        "zh-CN": "导入自己的词表，成片滑动浏览、点击或按片播放，并练习原创生活场景句子。",
+        "en": "Import personal vocabulary, browse continuous slices, play words or slices, and practice original everyday phrases."
+      }
+    },
+    {
+      "id": "industry-atlas",
+      "version": "0.1.0",
+      "path": "modules/industry-atlas",
+      "name": {
+        "zh-CN": "产业知识图谱",
+        "en": "Industry knowledge atlas"
+      },
+      "description": {
+        "zh-CN": "跨产业整理实体用途、多种产地、上下游证据与时间变更，保留假设和待验证问题。",
+        "en": "Organize cross-industry purposes, distinct location roles, evidence-backed relations and changes, with explicit hypotheses and open questions."
+      }
     }
   ]
 }

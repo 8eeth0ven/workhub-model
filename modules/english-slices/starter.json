@@ -1,0 +1,540 @@
+{
+  "schema_version": 1,
+  "module_id": "english-slices",
+  "content_note": "Original everyday practice examples; not exported membership content.",
+  "words": [
+    {
+      "word": "menu",
+      "meaning": "菜单",
+      "example": "Could I see the menu, please?",
+      "translation": "请给我看一下菜单，好吗？",
+      "scene": "咖啡与点餐",
+      "source": "starter"
+    },
+    {
+      "word": "order",
+      "meaning": "点单",
+      "example": "I am ready to order.",
+      "translation": "我准备好点单了。",
+      "scene": "咖啡与点餐",
+      "source": "starter"
+    },
+    {
+      "word": "less",
+      "meaning": "较少",
+      "example": "Could you add less sugar?",
+      "translation": "可以少放一点糖吗？",
+      "scene": "咖啡与点餐",
+      "source": "starter"
+    },
+    {
+      "word": "without",
+      "meaning": "不带；没有",
+      "example": "I would like a coffee without milk.",
+      "translation": "我想要一杯不加奶的咖啡。",
+      "scene": "咖啡与点餐",
+      "source": "starter"
+    },
+    {
+      "word": "refill",
+      "meaning": "续杯",
+      "example": "May I have a refill?",
+      "translation": "可以帮我续杯吗？",
+      "scene": "咖啡与点餐",
+      "source": "starter"
+    },
+    {
+      "word": "bill",
+      "meaning": "账单",
+      "example": "Could we have the bill, please?",
+      "translation": "请给我们结账，好吗？",
+      "scene": "咖啡与点餐",
+      "source": "starter"
+    },
+    {
+      "word": "station",
+      "meaning": "车站",
+      "example": "Which station should I get off at?",
+      "translation": "我应该在哪一站下车？",
+      "scene": "通勤与问路",
+      "source": "starter"
+    },
+    {
+      "word": "transfer",
+      "meaning": "换乘",
+      "example": "Do I need to transfer here?",
+      "translation": "我需要在这里换乘吗？",
+      "scene": "通勤与问路",
+      "source": "starter"
+    },
+    {
+      "word": "nearby",
+      "meaning": "附近",
+      "example": "Is there a bus stop nearby?",
+      "translation": "附近有公交站吗？",
+      "scene": "通勤与问路",
+      "source": "starter"
+    },
+    {
+      "word": "straight",
+      "meaning": "直行",
+      "example": "Go straight for two blocks.",
+      "translation": "一直往前走两个街区。",
+      "scene": "通勤与问路",
+      "source": "starter"
+    },
+    {
+      "word": "delay",
+      "meaning": "延误",
+      "example": "There is a short delay.",
+      "translation": "会有一小段时间的延误。",
+      "scene": "通勤与问路",
+      "source": "starter"
+    },
+    {
+      "word": "traffic",
+      "meaning": "交通；车流",
+      "example": "The traffic is heavy this morning.",
+      "translation": "今天早上的车流很大。",
+      "scene": "通勤与问路",
+      "source": "starter"
+    },
+    {
+      "word": "size",
+      "meaning": "尺码",
+      "example": "Do you have this in a smaller size?",
+      "translation": "这个有小一号的吗？",
+      "scene": "购物与付款",
+      "source": "starter"
+    },
+    {
+      "word": "fit",
+      "meaning": "合身",
+      "example": "This jacket fits me well.",
+      "translation": "这件夹克很合身。",
+      "scene": "购物与付款",
+      "source": "starter"
+    },
+    {
+      "word": "receipt",
+      "meaning": "收据",
+      "example": "Could I have a receipt?",
+      "translation": "可以给我一张收据吗？",
+      "scene": "购物与付款",
+      "source": "starter"
+    },
+    {
+      "word": "return",
+      "meaning": "退货",
+      "example": "What is your return policy?",
+      "translation": "你们的退货政策是什么？",
+      "scene": "购物与付款",
+      "source": "starter"
+    },
+    {
+      "word": "cash",
+      "meaning": "现金",
+      "example": "Can I pay in cash?",
+      "translation": "我可以用现金付款吗？",
+      "scene": "购物与付款",
+      "source": "starter"
+    },
+    {
+      "word": "discount",
+      "meaning": "折扣",
+      "example": "Is there a discount on this?",
+      "translation": "这个有折扣吗？",
+      "scene": "购物与付款",
+      "source": "starter"
+    },
+    {
+      "word": "tidy",
+      "meaning": "整理；整洁的",
+      "example": "I need to tidy my desk.",
+      "translation": "我需要整理一下书桌。",
+      "scene": "居家与安排",
+      "source": "starter"
+    },
+    {
+      "word": "laundry",
+      "meaning": "待洗衣物；洗衣",
+      "example": "I will do the laundry tonight.",
+      "translation": "我今晚会洗衣服。",
+      "scene": "居家与安排",
+      "source": "starter"
+    },
+    {
+      "word": "repair",
+      "meaning": "修理",
+      "example": "Could you repair the tap?",
+      "translation": "可以修一下水龙头吗？",
+      "scene": "居家与安排",
+      "source": "starter"
+    },
+    {
+      "word": "quiet",
+      "meaning": "安静的",
+      "example": "Could we keep it quiet after ten?",
+      "translation": "十点以后我们能保持安静吗？",
+      "scene": "居家与安排",
+      "source": "starter"
+    },
+    {
+      "word": "remind",
+      "meaning": "提醒",
+      "example": "Please remind me to buy some milk.",
+      "translation": "请提醒我买点牛奶。",
+      "scene": "居家与安排",
+      "source": "starter"
+    },
+    {
+      "word": "available",
+      "meaning": "有空的；可用的",
+      "example": "Are you available this evening?",
+      "translation": "你今晚有空吗？",
+      "scene": "居家与安排",
+      "source": "starter"
+    },
+    {
+      "word": "clarify",
+      "meaning": "澄清；说明白",
+      "example": "Could you clarify the last point?",
+      "translation": "可以把最后一点说明白吗？",
+      "scene": "工作与沟通",
+      "source": "starter"
+    },
+    {
+      "word": "deadline",
+      "meaning": "截止时间",
+      "example": "When is the deadline?",
+      "translation": "截止时间是什么时候？",
+      "scene": "工作与沟通",
+      "source": "starter"
+    },
+    {
+      "word": "update",
+      "meaning": "进展；更新",
+      "example": "Here is a quick update on the project.",
+      "translation": "这是项目的简短进展。",
+      "scene": "工作与沟通",
+      "source": "starter"
+    },
+    {
+      "word": "priority",
+      "meaning": "优先事项",
+      "example": "What is our top priority today?",
+      "translation": "我们今天最优先的事项是什么？",
+      "scene": "工作与沟通",
+      "source": "starter"
+    },
+    {
+      "word": "confirm",
+      "meaning": "确认",
+      "example": "Could you confirm the meeting time?",
+      "translation": "可以确认一下会议时间吗？",
+      "scene": "工作与沟通",
+      "source": "starter"
+    },
+    {
+      "word": "feedback",
+      "meaning": "反馈",
+      "example": "I would appreciate your feedback.",
+      "translation": "我很希望听听你的反馈。",
+      "scene": "工作与沟通",
+      "source": "starter"
+    },
+    {
+      "word": "join",
+      "meaning": "加入；参加",
+      "example": "Would you like to join us?",
+      "translation": "你想和我们一起吗？",
+      "scene": "社交与邀请",
+      "source": "starter"
+    },
+    {
+      "word": "catch",
+      "meaning": "赶上；见面聊聊",
+      "example": "Let us catch up this weekend.",
+      "translation": "我们这周末聚聚吧。",
+      "scene": "社交与邀请",
+      "source": "starter"
+    },
+    {
+      "word": "prefer",
+      "meaning": "更喜欢",
+      "example": "Which day would you prefer?",
+      "translation": "你更倾向哪一天？",
+      "scene": "社交与邀请",
+      "source": "starter"
+    },
+    {
+      "word": "sounds",
+      "meaning": "听起来",
+      "example": "That sounds good to me.",
+      "translation": "我觉得这个安排不错。",
+      "scene": "社交与邀请",
+      "source": "starter"
+    },
+    {
+      "word": "later",
+      "meaning": "稍后",
+      "example": "Could we talk later?",
+      "translation": "我们可以晚点聊吗？",
+      "scene": "社交与邀请",
+      "source": "starter"
+    },
+    {
+      "word": "appreciate",
+      "meaning": "感激；欣赏",
+      "example": "I really appreciate your help.",
+      "translation": "我很感谢你的帮助。",
+      "scene": "社交与邀请",
+      "source": "starter"
+    },
+    {
+      "word": "appointment",
+      "meaning": "预约",
+      "example": "I would like to make an appointment.",
+      "translation": "我想预约一下。",
+      "scene": "身体与健康",
+      "source": "starter"
+    },
+    {
+      "word": "sore",
+      "meaning": "疼痛的",
+      "example": "My throat is sore.",
+      "translation": "我的嗓子疼。",
+      "scene": "身体与健康",
+      "source": "starter"
+    },
+    {
+      "word": "rest",
+      "meaning": "休息",
+      "example": "I need some rest.",
+      "translation": "我需要休息一下。",
+      "scene": "身体与健康",
+      "source": "starter"
+    },
+    {
+      "word": "allergic",
+      "meaning": "过敏的",
+      "example": "I am allergic to peanuts.",
+      "translation": "我对花生过敏。",
+      "scene": "身体与健康",
+      "source": "starter"
+    },
+    {
+      "word": "pharmacy",
+      "meaning": "药店",
+      "example": "Is there a pharmacy nearby?",
+      "translation": "附近有药店吗？",
+      "scene": "身体与健康",
+      "source": "starter"
+    },
+    {
+      "word": "better",
+      "meaning": "好一些",
+      "example": "I feel a little better today.",
+      "translation": "我今天感觉好一点了。",
+      "scene": "身体与健康",
+      "source": "starter"
+    },
+    {
+      "word": "reservation",
+      "meaning": "预订",
+      "example": "I have a reservation under Lee.",
+      "translation": "我用Lee这个名字做了预订。",
+      "scene": "出行与住宿",
+      "source": "starter"
+    },
+    {
+      "word": "check-in",
+      "meaning": "入住登记",
+      "example": "What time is check-in?",
+      "translation": "几点可以办理入住？",
+      "scene": "出行与住宿",
+      "source": "starter"
+    },
+    {
+      "word": "luggage",
+      "meaning": "行李",
+      "example": "Can I leave my luggage here?",
+      "translation": "我可以把行李寄存在这里吗？",
+      "scene": "出行与住宿",
+      "source": "starter"
+    },
+    {
+      "word": "charger",
+      "meaning": "充电器",
+      "example": "Could I borrow a charger?",
+      "translation": "可以借我一个充电器吗？",
+      "scene": "出行与住宿",
+      "source": "starter"
+    },
+    {
+      "word": "direction",
+      "meaning": "方向",
+      "example": "Am I going in the right direction?",
+      "translation": "我走的方向对吗？",
+      "scene": "出行与住宿",
+      "source": "starter"
+    },
+    {
+      "word": "recommend",
+      "meaning": "推荐",
+      "example": "What would you recommend nearby?",
+      "translation": "附近有什么是你推荐的？",
+      "scene": "出行与住宿",
+      "source": "starter"
+    }
+  ],
+  "phrases": [
+    {
+      "text": "Could I see the menu, please?",
+      "translation": "请给我看一下菜单，好吗？",
+      "scene": "咖啡与点餐",
+      "source": "starter"
+    },
+    {
+      "text": "I am ready to order.",
+      "translation": "我准备好点单了。",
+      "scene": "咖啡与点餐",
+      "source": "starter"
+    },
+    {
+      "text": "Could you add less sugar?",
+      "translation": "可以少放一点糖吗？",
+      "scene": "咖啡与点餐",
+      "source": "starter"
+    },
+    {
+      "text": "Which station should I get off at?",
+      "translation": "我应该在哪一站下车？",
+      "scene": "通勤与问路",
+      "source": "starter"
+    },
+    {
+      "text": "Do I need to transfer here?",
+      "translation": "我需要在这里换乘吗？",
+      "scene": "通勤与问路",
+      "source": "starter"
+    },
+    {
+      "text": "Is there a bus stop nearby?",
+      "translation": "附近有公交站吗？",
+      "scene": "通勤与问路",
+      "source": "starter"
+    },
+    {
+      "text": "Do you have this in a smaller size?",
+      "translation": "这个有小一号的吗？",
+      "scene": "购物与付款",
+      "source": "starter"
+    },
+    {
+      "text": "This jacket fits me well.",
+      "translation": "这件夹克很合身。",
+      "scene": "购物与付款",
+      "source": "starter"
+    },
+    {
+      "text": "Could I have a receipt?",
+      "translation": "可以给我一张收据吗？",
+      "scene": "购物与付款",
+      "source": "starter"
+    },
+    {
+      "text": "I need to tidy my desk.",
+      "translation": "我需要整理一下书桌。",
+      "scene": "居家与安排",
+      "source": "starter"
+    },
+    {
+      "text": "I will do the laundry tonight.",
+      "translation": "我今晚会洗衣服。",
+      "scene": "居家与安排",
+      "source": "starter"
+    },
+    {
+      "text": "Could you repair the tap?",
+      "translation": "可以修一下水龙头吗？",
+      "scene": "居家与安排",
+      "source": "starter"
+    },
+    {
+      "text": "Could you clarify the last point?",
+      "translation": "可以把最后一点说明白吗？",
+      "scene": "工作与沟通",
+      "source": "starter"
+    },
+    {
+      "text": "When is the deadline?",
+      "translation": "截止时间是什么时候？",
+      "scene": "工作与沟通",
+      "source": "starter"
+    },
+    {
+      "text": "Here is a quick update on the project.",
+      "translation": "这是项目的简短进展。",
+      "scene": "工作与沟通",
+      "source": "starter"
+    },
+    {
+      "text": "Would you like to join us?",
+      "translation": "你想和我们一起吗？",
+      "scene": "社交与邀请",
+      "source": "starter"
+    },
+    {
+      "text": "Let us catch up this weekend.",
+      "translation": "我们这周末聚聚吧。",
+      "scene": "社交与邀请",
+      "source": "starter"
+    },
+    {
+      "text": "Which day would you prefer?",
+      "translation": "你更倾向哪一天？",
+      "scene": "社交与邀请",
+      "source": "starter"
+    },
+    {
+      "text": "I would like to make an appointment.",
+      "translation": "我想预约一下。",
+      "scene": "身体与健康",
+      "source": "starter"
+    },
+    {
+      "text": "My throat is sore.",
+      "translation": "我的嗓子疼。",
+      "scene": "身体与健康",
+      "source": "starter"
+    },
+    {
+      "text": "I need some rest.",
+      "translation": "我需要休息一下。",
+      "scene": "身体与健康",
+      "source": "starter"
+    },
+    {
+      "text": "I have a reservation under Lee.",
+      "translation": "我用Lee这个名字做了预订。",
+      "scene": "出行与住宿",
+      "source": "starter"
+    },
+    {
+      "text": "What time is check-in?",
+      "translation": "几点可以办理入住？",
+      "scene": "出行与住宿",
+      "source": "starter"
+    },
+    {
+      "text": "Can I leave my luggage here?",
+      "translation": "我可以把行李寄存在这里吗？",
+      "scene": "出行与住宿",
+      "source": "starter"
+    }
+  ],
+  "progress": {
+    "seen": []
+  }
+}

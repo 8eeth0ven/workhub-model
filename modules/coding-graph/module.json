@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "id": "coding-graph",
+  "version": "0.1.0",
+  "kind": "workhub-module",
+  "name": {
+    "zh-CN": "代码与图检索",
+    "en": "Code & graph learning"
+  },
+  "python": ">=3.10",
+  "entrypoints": {
+    "index": "bin/index_code.py",
+    "query": "bin/query_graph.py",
+    "build": "bin/build_data.py",
+    "updates": "bin/collect_updates.py"
+  },
+  "site": {
+    "entry": "site/index.html",
+    "layout": "library",
+    "generated": true
+  },
+  "files": [
+    "module.json",
+    "README.md",
+    "README.en.md",
+    "catalog.json",
+    "bin/graph_core.py",
+    "bin/index_code.py",
+    "bin/query_graph.py",
+    "bin/build_data.py",
+    "bin/collect_updates.py",
+    "site.template.html",
+    "site/design-system.css",
+    "site/embedded-theme.js",
+    "docs/guide.md",
+    "docs/guide.en.md",
+    "prompts/code-learning.md",
+    "prompts/code-learning.en.md"
+  ],
+  "runtime_excluded": [
+    "data/",
+    "logs/",
+    "site/index.html",
+    "module-install.json"
+  ],
+  "installation": {
+    "executes_code": false,
+    "collects_news": false,
+    "creates_automations": false,
+    "updates_global_agent_rules": false
+  }
+}

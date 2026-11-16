@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "module_id": "industry-atlas",
+  "demo": true,
+  "entities": [
+    {
+      "id": "fictional-compute-board",
+      "name": "虚构算力板甲 · Fictional board A",
+      "kind": "component",
+      "industries": [
+        "compute",
+        "automotive"
+      ],
+      "aliases": [],
+      "claims": [
+        {
+          "id": "demo-board-role",
+          "field": "role",
+          "value": "虚构演示：为虚构车载系统提供计算，不代表任何真实产品。",
+          "source_ids": [],
+          "status": "hypothesis",
+          "valid_from": null,
+          "valid_to": null,
+          "observed_at": "2026-11-16",
+          "note": "Fictional example only. No real business, market or investment claim."
+        },
+        {
+          "id": "demo-board-principle",
+          "field": "principle",
+          "value": "演示如何把输入、处理过程与输出分别记录；具体工作原理尚待研究。",
+          "source_ids": [],
+          "status": "hypothesis",
+          "valid_from": null,
+          "valid_to": null,
+          "observed_at": "2026-11-16",
+          "note": "Fictional example only. No real business, market or investment claim."
+        },
+        {
+          "id": "demo-board-manufacturing",
+          "field": "manufacturing_origin",
+          "value": {
+            "country": null,
+            "region": null,
+            "site": null
+          },
+          "source_ids": [],
+          "status": "hypothesis",
+          "valid_from": null,
+          "valid_to": null,
+          "observed_at": "2026-11-16",
+          "note": "制造地未知，不从总部所在地推断。Manufacturing location is unknown."
+        },
+        {
+          "id": "demo-board-spec-old",
+          "field": "specifications",
+          "value": "旧的虚构规格：接口方案甲",
+          "source_ids": [],
+          "status": "hypothesis",
+          "valid_from": null,
+          "valid_to": null,
+          "observed_at": "2026-11-15",
+          "note": "Fictional example only. No real business, market or investment claim."
+        },
+        {
+          "id": "demo-board-spec-new",
+          "field": "specifications",
+          "value": "新的虚构规格：接口方案乙",
+          "source_ids": [],
+          "status": "hypothesis",
+          "valid_from": null,
+          "valid_to": null,
+          "observed_at": "2026-11-16",
+          "note": "Fictional example only. No real business, market or investment claim."
+        }
+      ]
+    },
+    {
+      "id": "fictional-vehicle-system",
+      "name": "虚构车载系统乙 · Fictional vehicle system B",
+      "kind": "system",
+      "industries": [
+        "automotive",
+        "compute"
+      ],
+      "aliases": [],
+      "claims": [
+        {
+          "id": "demo-vehicle-role",
+          "field": "role",
+          "value": "虚构演示：集成计算与供能部件的车载系统。",
+          "source_ids": [],
+          "status": "hypothesis",
+          "valid_from": null,
+          "valid_to": null,
+          "observed_at": "2026-11-16",
+          "note": "Fictional example only. No real business, market or investment claim."
+        },
+        {
+          "id": "demo-vehicle-headquarters",
+          "field": "headquarters_origin",
+          "value": null,
+          "source_ids": [],
+          "status": "hypothesis",
+          "valid_from": null,
+          "valid_to": null,
+          "observed_at": "2026-11-16",
+          "note": "未知值保留为空。Unknown remains null."
+        },
+        {
+          "id": "demo-vehicle-applications",
+          "field": "applications",
+          "value": [
+            "关系建模演示",
+            "证据缺口练习"
+          ],
+          "source_ids": [],
+          "status": "hypothesis",
+          "valid_from": null,
+          "valid_to": null,
+          "observed_at": "2026-11-16",
+          "note": "Fictional example only. No real business, market or investment claim."
+        }
+      ]
+    },
+    {
+      "id": "fictional-energy-unit",
+      "name": "虚构供能单元丙 · Fictional energy unit C",
+      "kind": "component",
+      "industries": [
+        "energy",
+        "automotive"
+      ],
+      "aliases": [],
+      "claims": [
+        {
+          "id": "demo-energy-role",
+          "field": "role",
+          "value": "虚构演示：给虚构车载系统供能。",
+          "source_ids": [],
+          "status": "hypothesis",
+          "valid_from": null,
+          "valid_to": null,
+          "observed_at": "2026-11-16",
+          "note": "Fictional example only. No real business, market or investment claim."
+        },
+        {
+          "id": "demo-energy-raw-material",
+          "field": "raw_material_origin",
+          "value": {
+            "material": null,
+            "country": null,
+            "site": null
+          },
+          "source_ids": [],
+          "status": "hypothesis",
+          "valid_from": null,
+          "valid_to": null,
+          "observed_at": "2026-11-16",
+          "note": "原料与产地均待补证据。Raw material and origin are unknown."
+        },
+        {
+          "id": "demo-energy-substitutes",
+          "field": "substitutes",
+          "value": null,
+          "source_ids": [],
+          "status": "hypothesis",
+          "valid_from": null,
+          "valid_to": null,
+          "observed_at": "2026-11-16",
+          "note": "替代方案未知，不能仅凭连线推断可替代性。No substitute is inferred from graph links."
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "id": "demo-board-supplies-vehicle",
+      "source": "fictional-compute-board",
+      "target": "fictional-vehicle-system",
+      "kind": "supplies",
+      "claim": {
+        "id": "demo-relation-board",
+        "field": "relationship",
+        "value": {
+          "role": "虚构计算部件供给",
+          "condition": "仅假设接口和验证条件满足",
+          "transmission": "上游接口变化可能要求下游重新验证；不自动推断影响幅度。"
+        },
+        "source_ids": [],
+        "status": "hypothesis",
+        "valid_from": null,
+        "valid_to": null,
+        "observed_at": "2026-11-16",
+        "note": "Fictional example only. No real business, market or investment claim."
+      }
+    },
+    {
+      "id": "demo-energy-supplies-vehicle",
+      "source": "fictional-energy-unit",
+      "target": "fictional-vehicle-system",
+      "kind": "powers",
+      "claim": {
+        "id": "demo-relation-energy",
+        "field": "relationship",
+        "value": {
+          "role": "虚构供能",
+          "condition": "仅假设电气接口与安全验证满足",
+          "transmission": "供能方案变化是否影响系统，仍需实际规格与验证记录。"
+        },
+        "source_ids": [],
+        "status": "hypothesis",
+        "valid_from": null,
+        "valid_to": null,
+        "observed_at": "2026-11-16",
+        "note": "Fictional example only. No real business, market or investment claim."
+      }
+    }
+  ],
+  "sources": [],
+  "changes": [
+    {
+      "id": "demo-specification-change",
+      "entity_id": "fictional-compute-board",
+      "field": "specifications",
+      "previous_claim_id": "demo-board-spec-old",
+      "new_claim_id": "demo-board-spec-new",
+      "observed_at": "2026-11-16",
+      "note": "演示显式版本对照，两个虚构记录都保留。Fictional comparison; both records are retained."
+    }
+  ]
+}

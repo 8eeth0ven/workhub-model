@@ -1,0 +1,470 @@
+{
+  "schema_version": 1,
+  "topics": [
+    {
+      "id": "agent-engineering",
+      "name": {
+        "zh-CN": "Agent工程",
+        "en": "Agent engineering"
+      },
+      "track": "coding"
+    },
+    {
+      "id": "context-memory",
+      "name": {
+        "zh-CN": "上下文与记忆",
+        "en": "Context & memory"
+      },
+      "track": "coding"
+    },
+    {
+      "id": "tools-runtime",
+      "name": {
+        "zh-CN": "工具与运行环境",
+        "en": "Tools & runtime"
+      },
+      "track": "coding"
+    },
+    {
+      "id": "verification-evals",
+      "name": {
+        "zh-CN": "验证与评测",
+        "en": "Verification & evals"
+      },
+      "track": "coding"
+    },
+    {
+      "id": "training-feedback",
+      "name": {
+        "zh-CN": "训练与反馈数据",
+        "en": "Training & feedback"
+      },
+      "track": "coding"
+    },
+    {
+      "id": "repo-intelligence",
+      "name": {
+        "zh-CN": "仓库级代码理解",
+        "en": "Repository intelligence"
+      },
+      "track": "graph"
+    },
+    {
+      "id": "graph-retrieval",
+      "name": {
+        "zh-CN": "GraphRAG与图检索",
+        "en": "Graph retrieval"
+      },
+      "track": "graph"
+    },
+    {
+      "id": "temporal-graphs",
+      "name": {
+        "zh-CN": "时序知识图谱",
+        "en": "Temporal graphs"
+      },
+      "track": "graph"
+    },
+    {
+      "id": "graph-tooling",
+      "name": {
+        "zh-CN": "图工具与证据",
+        "en": "Graph tools & evidence"
+      },
+      "track": "graph"
+    }
+  ],
+  "resources": [
+    {
+      "id": "openhands",
+      "title": {
+        "zh-CN": "OpenHands：端到端代码Agent",
+        "en": "OpenHands: end-to-end coding agents"
+      },
+      "url": "https://github.com/OpenHands/OpenHands",
+      "topic": "agent-engineering",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "看完整任务怎样连接工具、代码修改与反馈。项目进展不等于适合自己的任务。",
+        "en": "Study how whole tasks connect tools, code edits and feedback; project activity does not establish task fit."
+      },
+      "practice": {
+        "zh-CN": "固定同一任务、模型与预算，对比你的现有流程和一个公开Agent流程。",
+        "en": "Hold the task, model and budget fixed when comparing your workflow with an agent workflow."
+      },
+      "self_check": {
+        "zh-CN": "成功来自模型、工具还是任务选择？",
+        "en": "Does success come from the model, tooling or task selection?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "mini-swe-agent",
+      "title": {
+        "zh-CN": "mini-SWE-agent：最小Agent基线",
+        "en": "mini-SWE-agent: a minimal agent baseline"
+      },
+      "url": "https://github.com/SWE-agent/mini-swe-agent",
+      "topic": "agent-engineering",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "用较小的Agent实现审视复杂编排是否真的有用；作为对照而非自动推荐。",
+        "en": "Use a small agent implementation to test whether added orchestration helps; it is a comparison baseline, not a recommendation."
+      },
+      "practice": {
+        "zh-CN": "为复杂Agent做一次去掉一个组件的消融比较。",
+        "en": "Compare your agent after removing one component."
+      },
+      "self_check": {
+        "zh-CN": "减少一个组件，成功率是否真的下降？",
+        "en": "Does removing a component actually reduce success?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "deepagents",
+      "title": {
+        "zh-CN": "Deep Agents：规划与委派",
+        "en": "Deep Agents: planning and delegation"
+      },
+      "url": "https://github.com/langchain-ai/deepagents",
+      "topic": "agent-engineering",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "研究规划、文件上下文和子Agent委派的工程取舍。",
+        "en": "Study engineering trade-offs in planning, file-based context and subagent delegation."
+      },
+      "practice": {
+        "zh-CN": "把一个长任务拆成独立子任务，记录交接输入、产物和复核证据。",
+        "en": "Split a long task and record each handoff input, artifact and verification."
+      },
+      "self_check": {
+        "zh-CN": "并行加速是否被交接错误抵消？",
+        "en": "Do handoff errors offset parallel speedups?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "harness-2026",
+      "title": {
+        "zh-CN": "2026：长任务Harness设计",
+        "en": "2026: long-running harness design"
+      },
+      "url": "https://www.anthropic.com/research/harness-design-long-running-apps",
+      "topic": "agent-engineering",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "以长任务的生成、评估和跨会话状态为研究对象，按原文实验边界理解。",
+        "en": "Study generation, evaluation and cross-session state for long tasks within the source experiment limits."
+      },
+      "practice": {
+        "zh-CN": "为一次项目更新列出可复查产物和独立完成条件。",
+        "en": "Define inspectable artifacts and completion criteria for one project update."
+      },
+      "self_check": {
+        "zh-CN": "Agent说完成与验收完成之间缺哪份证据？",
+        "en": "What separates an agent completion claim from acceptance?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "managed-2026",
+      "title": {
+        "zh-CN": "2026：模型、会话与沙箱解耦",
+        "en": "2026: decouple model, session and sandbox"
+      },
+      "url": "https://www.anthropic.com/research/managed-agents",
+      "topic": "tools-runtime",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "研究Agent状态、执行环境和模型上下文的边界，旧技巧需重新验证。",
+        "en": "Study boundaries between agent state, execution and context; old techniques need renewed validation."
+      },
+      "practice": {
+        "zh-CN": "画出当前Agent的数据流和执行边界，标记可恢复状态。",
+        "en": "Map your agent data flow and execution boundaries, including recoverable state."
+      },
+      "self_check": {
+        "zh-CN": "模型更强以后，哪条旧规则可能成为负担？",
+        "en": "Which old rule could become unnecessary with a stronger model?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "context-engineering",
+      "title": {
+        "zh-CN": "上下文工程：按任务取证",
+        "en": "Context engineering: task-specific evidence"
+      },
+      "url": "https://www.anthropic.com/research/effective-context-engineering-for-ai-agents",
+      "topic": "context-memory",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "研究检索、压缩和上下文选择，避免把完整仓库塞入每次请求。",
+        "en": "Study retrieval, compaction and context selection instead of sending the whole repository every time."
+      },
+      "practice": {
+        "zh-CN": "比较同一问题下全文上下文与有来源的检索片段。",
+        "en": "Compare full-context input with sourced retrieval passages for the same question."
+      },
+      "self_check": {
+        "zh-CN": "压缩时丢掉了哪条能改变结论的信息？",
+        "en": "Which lost detail could change the conclusion?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "mcp",
+      "title": {
+        "zh-CN": "MCP规范与版本兼容",
+        "en": "MCP specification and compatibility"
+      },
+      "url": "https://github.com/modelcontextprotocol/modelcontextprotocol",
+      "topic": "tools-runtime",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "从协议版本、工具契约和能力协商检查互操作，不只看是否能连上。",
+        "en": "Inspect protocol versions, tool contracts and capability negotiation beyond mere connectivity."
+      },
+      "practice": {
+        "zh-CN": "为一个工具写输入、输出、失败和权限边界。",
+        "en": "Document a tool input, output, failures and permission boundaries."
+      },
+      "self_check": {
+        "zh-CN": "连接成功是否证明语义和版本都兼容？",
+        "en": "Does connectivity establish semantic and version compatibility?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "swe-rex",
+      "title": {
+        "zh-CN": "SWE-ReX：可复现执行环境",
+        "en": "SWE-ReX: reproducible execution"
+      },
+      "url": "https://swe-rex.com/latest/",
+      "topic": "tools-runtime",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "研究Agent执行代码时的环境隔离、会话和反馈。",
+        "en": "Study execution environments, sessions and feedback for coding agents."
+      },
+      "practice": {
+        "zh-CN": "记录一次任务的依赖、环境版本、命令和退出状态。",
+        "en": "Record dependencies, environment versions, commands and exit status for a task."
+      },
+      "self_check": {
+        "zh-CN": "换一个环境，结果还能复现吗？",
+        "en": "Can the result be reproduced in another environment?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "agent-evals-2026",
+      "title": {
+        "zh-CN": "2026：Agent评测工程",
+        "en": "2026: engineering agent evaluations"
+      },
+      "url": "https://www.anthropic.com/research/demystifying-evals-for-ai-agents",
+      "topic": "verification-evals",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "区分任务、轨迹和评分器，保留失败样本与评价口径。",
+        "en": "Separate tasks, trajectories and graders while preserving failures and evaluation definitions."
+      },
+      "practice": {
+        "zh-CN": "为你的Agent建一组真实失败任务，先定义可观察的通过条件。",
+        "en": "Build a set of real agent failures and define observable success first."
+      },
+      "self_check": {
+        "zh-CN": "评分器会不会奖励一个错误但好看的答案？",
+        "en": "Could the grader reward a polished but wrong answer?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "swe-bench",
+      "title": {
+        "zh-CN": "SWE-bench：仓库级修复评测",
+        "en": "SWE-bench: repository-level repair evals"
+      },
+      "url": "https://www.swebench.com/",
+      "topic": "verification-evals",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "按数据集版本、Agent环境和核查状态读榜单，避免跨口径比较。",
+        "en": "Read results with dataset version, agent environment and verification status; avoid mismatched comparisons."
+      },
+      "practice": {
+        "zh-CN": "对一个公开结果列出数据版本、模型、环境和复核方式。",
+        "en": "For a public result, list dataset version, model, environment and verification."
+      },
+      "self_check": {
+        "zh-CN": "模型分数提高，能直接推出你的项目效果更好吗？",
+        "en": "Does a higher benchmark score establish improvement on your project?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "terminal-bench",
+      "title": {
+        "zh-CN": "Terminal-Bench：终端长任务",
+        "en": "Terminal-Bench: realistic terminal tasks"
+      },
+      "url": "https://www.tbench.ai/",
+      "topic": "verification-evals",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "直接查看官方当前版本和任务环境，不把旧榜单当成最新结论。",
+        "en": "Check the official current version and task environment rather than reusing old rankings."
+      },
+      "practice": {
+        "zh-CN": "为一个终端任务保留命令轨迹、失败原因和最终产物。",
+        "en": "Keep command traces, failure reasons and final artifacts for a terminal task."
+      },
+      "self_check": {
+        "zh-CN": "通过率比较时，任务版本和预算相同吗？",
+        "en": "Are task versions and budgets equal in the comparison?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "swe-smith",
+      "title": {
+        "zh-CN": "SWE-smith：软件工程训练数据",
+        "en": "SWE-smith: software-engineering training data"
+      },
+      "url": "https://swesmith.com/",
+      "topic": "training-feedback",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "研究可执行任务与验证信号怎样构造，关注数据泄漏和泛化。",
+        "en": "Study executable tasks and validation signals, including leakage and generalization."
+      },
+      "practice": {
+        "zh-CN": "区分训练反馈与独立保留的验收任务，写出隔离规则。",
+        "en": "Separate training feedback from held-out acceptance tasks and define isolation."
+      },
+      "self_check": {
+        "zh-CN": "提升来自更强能力还是见过相似题？",
+        "en": "Does improvement reflect stronger capability or familiar tasks?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "gitnexus",
+      "title": {
+        "zh-CN": "GitNexus：仓库级代码图谱",
+        "en": "GitNexus: repository code intelligence"
+      },
+      "url": "https://github.com/abhigyanpatwari/GitNexus",
+      "topic": "repo-intelligence",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "参考符号、调用、依赖与执行流索引，以及检索和影响分析的证据呈现。",
+        "en": "Study indexing of symbols, calls, dependencies and flows with evidence-oriented search and impact analysis."
+      },
+      "practice": {
+        "zh-CN": "用同一函数对比文本检索与关系检索的遗漏和误报。",
+        "en": "Compare omissions and false positives in text and relation retrieval for one function."
+      },
+      "self_check": {
+        "zh-CN": "索引新鲜度与语言覆盖限制在哪里？",
+        "en": "Where are the freshness and language-coverage limits?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "gitnexus-mcp",
+      "title": {
+        "zh-CN": "GitNexus：图工具驱动Agent",
+        "en": "GitNexus: graph tools for agents"
+      },
+      "url": "https://github.com/abhigyanpatwari/GitNexus/blob/main/docs/mcp-reference.md",
+      "topic": "graph-tooling",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "比较query、context、impact与trace如何提供上下文；本模块未安装GitNexus MCP。",
+        "en": "Compare how query, context, impact and trace provide evidence; this module does not install GitNexus MCP."
+      },
+      "practice": {
+        "zh-CN": "让Agent先给关系证据，再解释一次改动的潜在影响。",
+        "en": "Ask an agent for relation evidence before explaining possible change impact."
+      },
+      "self_check": {
+        "zh-CN": "一条静态路径能支持到哪一步判断？",
+        "en": "How far can a static path support a conclusion?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "graphrag",
+      "title": {
+        "zh-CN": "GraphRAG：结构化检索",
+        "en": "GraphRAG: structured retrieval"
+      },
+      "url": "https://microsoft.github.io/graphrag/",
+      "topic": "graph-retrieval",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "研究实体关系、社区摘要和查询上下文的结合，按自己的问题验证收益。",
+        "en": "Study entities, relationships, community summaries and query context, validating gains on your own tasks."
+      },
+      "practice": {
+        "zh-CN": "固定语料和问题，对照图检索与普通检索的证据覆盖。",
+        "en": "Hold corpus and questions fixed when comparing graph and baseline retrieval coverage."
+      },
+      "self_check": {
+        "zh-CN": "图结构带来了新证据，还是重复了摘要？",
+        "en": "Does the graph add evidence or repeat summaries?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "lightrag",
+      "title": {
+        "zh-CN": "LightRAG：图检索更新与评测",
+        "en": "LightRAG: graph retrieval updates and evals"
+      },
+      "url": "https://github.com/HKUDS/LightRAG",
+      "topic": "graph-retrieval",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "关注检索路径、图更新和实际评测证据；不从项目宣传推出通用效果。",
+        "en": "Inspect retrieval paths, graph updates and evaluation evidence without generalizing project claims."
+      },
+      "practice": {
+        "zh-CN": "对一次知识更新记录新增关系、检索差异和错误样本。",
+        "en": "For a knowledge update, record relation changes, retrieval differences and errors."
+      },
+      "self_check": {
+        "zh-CN": "更新关系以后，旧答案是否仍有依据？",
+        "en": "Do old answers remain supported after graph updates?"
+      },
+      "reviewed_on": "2026-11-16"
+    },
+    {
+      "id": "graphiti",
+      "title": {
+        "zh-CN": "Graphiti：时序知识图谱",
+        "en": "Graphiti: temporal knowledge graphs"
+      },
+      "url": "https://github.com/getzep/graphiti",
+      "topic": "temporal-graphs",
+      "level": "advanced",
+      "summary": {
+        "zh-CN": "研究带时间的关系与记忆更新，区分当前事实和过去事实。",
+        "en": "Study time-aware relationships and memory updates, separating current from past facts."
+      },
+      "practice": {
+        "zh-CN": "为一个变化中的实体保留关系有效期、来源和冲突处理。",
+        "en": "Record relationship validity, source and conflict handling for a changing entity."
+      },
+      "self_check": {
+        "zh-CN": "两个时间点的事实矛盾，怎样避免覆盖历史？",
+        "en": "How can conflicting facts be handled without erasing history?"
+      },
+      "reviewed_on": "2026-11-16"
+    }
+  ]
+}

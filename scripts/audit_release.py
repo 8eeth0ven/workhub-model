@@ -15,7 +15,7 @@ import sys
 ROOT = Path(__file__).resolve().parent.parent
 SKIP_DIRECTORIES = {".git", ".venv", "venv", "node_modules", "__pycache__", ".pytest_cache", ".mypy_cache", "reports"}
 RUNTIME_DIRECTORIES = {"data", "runtime", "logs", "exports", ".workhub", ".agent-workhub"}
-PRIVATE_NAMES = {".env", "config.json", "module-install.json", "latest.json", "last-run.json", "previous.json", "delta.json", "增量简报.md", "seen-index.json", ".collection-state.json", ".collection-mode.json", "llm.json", "glm.json", ".gitcredentials", ".git-credentials", "credentials.json", "session.json", "id_rsa", "id_ecdsa", "id_ed25519", "id_dsa"}
+PRIVATE_NAMES = {".env", "config.json", "module-install.json", "library.json", "atlas.json", "frontier.json", "frontier-last-run.json", "latest.json", "last-run.json", "previous.json", "delta.json", "增量简报.md", "seen-index.json", ".collection-state.json", ".collection-mode.json", "llm.json", "glm.json", ".gitcredentials", ".git-credentials", "credentials.json", "session.json", "id_rsa", "id_ecdsa", "id_ed25519", "id_dsa"}
 IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp", ".gif"}
 HOME_PATH = re.compile(r'''(?<![\w])/(?:Users|home)/[A-Za-z0-9._-]+(?:/|(?=["'\s]))''')
 WINDOWS_HOME = re.compile(r'''[A-Za-z]:[\\/](?:Users|Documents and Settings)[\\/][^\\/\s"'<>]+''', re.I)

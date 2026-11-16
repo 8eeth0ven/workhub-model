@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "id": "english-slices",
+  "version": "0.1.0",
+  "kind": "workhub-module",
+  "name": {
+    "zh-CN": "英语成片学习",
+    "en": "English in slices"
+  },
+  "python": ">=3.10",
+  "entrypoints": {
+    "serve": "bin/serve.py",
+    "build": "bin/build_data.py"
+  },
+  "site": {
+    "entry": "site/index.html",
+    "layout": "library",
+    "kind": "server",
+    "generated": true
+  },
+  "files": [
+    "module.json",
+    "README.md",
+    "README.en.md",
+    "bin/library.py",
+    "bin/serve.py",
+    "bin/build_data.py",
+    "starter.json",
+    "site.template.html",
+    "site/design-system.css",
+    "site/embedded-theme.js",
+    "site/app.js",
+    "docs/import.md",
+    "docs/import.en.md"
+  ],
+  "runtime_excluded": [
+    "data/",
+    "logs/",
+    "site/index.html",
+    "module-install.json",
+    "config.json"
+  ],
+  "installation": {
+    "executes_code": false,
+    "collects_news": false,
+    "creates_automations": false,
+    "updates_global_agent_rules": false
+  }
+}

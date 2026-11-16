@@ -15,6 +15,7 @@ import stat
 import subprocess
 import sys
 import zipfile
+from urllib.parse import urlsplit
 
 
 ROOT = Path(__file__).resolve().parent
@@ -22,7 +23,7 @@ MAX_FILE_BYTES = 8 * 1024 * 1024
 MAX_MODULE_BYTES = 40 * 1024 * 1024
 MODULE_ID = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
 PRIVATE_NAMES = {".env", "llm.json", "glm.json", "credentials.json", "session.json", "config.json",
-                 "module-install.json", "last-run.json", "latest.json", "最新日报.md",
+                 "module-install.json", "library.json", "atlas.json", "frontier.json", "frontier-last-run.json", "last-run.json", "latest.json", "最新日报.md",
                  "previous.json", "delta.json", "增量简报.md", "seen-index.json",
                  ".collection-state.json", ".collection-mode.json"}
 EXCLUDED_PARTS = {"data", "logs", "runtime", "exports", "reports", "__pycache__", "node_modules",
@@ -241,13 +242,30 @@ def connect(args: argparse.Namespace) -> dict:
     if local_manifest.get("id") != args.module or local_manifest.get("schema_version") != 1:
         raise ModuleError("installed directory is not the selected module")
     site_entry = safe_relative(manifest.get("site", {}).get("entry", ""))
-    regular_file(installed, site_entry)
+    site_url = getattr(args, "site_url", None)
+    if site_url is not None:
+        try:
+            parsed = urlsplit(site_url)
+            valid = (parsed.scheme in {"http", "https"} and parsed.hostname in {"127.0.0.1", "localhost", "::1"}
+                     and not parsed.username and not parsed.password and not parsed.query and not parsed.fragment
+                     and not any(ord(char) < 33 for char in site_url))
+            parsed.port
+        except ValueError:
+            valid = False
+        if not valid:
+            raise ModuleError("site URL must be a loopback HTTP(S) address without credentials, query or fragment")
+        site_arguments = ["--site-url", site_url]
+    else:
+        if manifest.get("site", {}).get("kind") == "server":
+            raise ModuleError("start this server module explicitly, then connect with --site-url")
+        regular_file(installed, site_entry)
+        site_arguments = ["--site-dir", str(installed / site_entry.parent)]
     layout = manifest.get("site", {}).get("layout", "radar")
     if layout not in {"radar", "library", "brief"}:
         raise ModuleError("unsupported site layout")
     workhub = Path(args.workhub).expanduser().absolute()
     installer = regular_file(workhub, PurePosixPath("scripts/install.py"))
-    command = [sys.executable, str(installer), "--project", str(installed), "--site-dir", str(installed / site_entry.parent),
+    command = [sys.executable, str(installer), "--project", str(installed), *site_arguments,
                "--site-name", manifest["name"]["zh-CN"], "--template", layout]
     result = {"action": "connect", "id": args.module, "dry_run": args.dry_run, "command": command,
               "note": "Connects the built site only; does not start collection, a server or an automation."}
@@ -271,6 +289,7 @@ def main(argv: list[str] | None = None) -> int:
     command.add_argument("module")
     command.add_argument("--installed", required=True)
     command.add_argument("--workhub", required=True)
+    command.add_argument("--site-url", help="connect an explicitly started loopback server instead of a static directory")
     command.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
     try:

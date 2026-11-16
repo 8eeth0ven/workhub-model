@@ -1,82 +1,54 @@
-[简体中文](README.md) | [English](README.en.md)
+[简体中文](README.md) · [English](README.en.md)
 
 # Workhub Model
 
-**Download independent feature modules and connect them to Workhub.** This repository provides feature source, example settings and prompts rather than model weights.
+Independent local modules for public updates, industry knowledge and learning. Install what you need and switch within Workhub. This repository provides feature source, examples and prompts, not model weights.
 
-| Module | Purpose | Guide and download |
-| --- | --- | --- |
-| Automotive opinion monitor | Automotive news, Li Auto, risk keywords and trends | [Guide](modules/auto-opinion/README.en.md) · [ZIP](https://github.com/8eeth0ven/workhub-model/releases/download/v0.1.0/auto-opinion-0.1.0.zip) |
-| AI product opinion monitor | Products, models, hardware, public statements and trends; new and changed material first | [Guide](modules/ai-opinion/README.en.md) · [ZIP](https://github.com/8eeth0ven/workhub-model/releases/download/ai-opinion-v0.1.0/ai-opinion-0.1.0.zip) |
-| Compute investment research | Seven value-chain stages, GPU catalog quotes, industry signals and Socratic questions | [Guide](modules/compute-search/README.en.md) · [ZIP](https://github.com/8eeth0ven/workhub-model/releases/download/compute-search-v0.1.0/compute-search-0.1.0.zip) |
+| Module | Purpose |
+| --- | --- |
+| [Automotive news](modules/auto-opinion/README.en.md) | Carmaker headlines, a Li Auto section and automotive trends |
+| [AI product news](modules/ai-opinion/README.en.md) | Reports added or changed since the previous successful collection |
+| [Compute value chain](modules/compute-search/README.en.md) | GPU catalog rates, vendor announcements and seven industry segments |
+| [Industry knowledge atlas](modules/industry-atlas/README.en.md) | Cross-industry purposes, location roles, relationship evidence and change history |
+| [Code & graph learning](modules/coding-graph/README.en.md) | AI-native release samples, 17 advanced resources and local Python static graphs |
+| [English in slices](modules/english-slices/README.en.md) | Personal-list imports, continuous browsing, speech and original everyday phrases |
 
-![AI module: compare the last successful snapshot with this run; original illustration in Chinese, not a screenshot](docs/images/ai-opinion-cover.svg)
-
-Modules share Workhub’s existing **Codex Light**, compact layout and palette protocol, with dark and other palettes available. They install independently, keep separate data and are not tied to the original device or automation.
-
-## Download and try
-
-Use Python 3.10 or newer. Download a standalone ZIP from [Releases](https://github.com/8eeth0ven/workhub-model/releases), or clone and select a module:
+Use Python 3.10 or later. From the repository root, install to a new folder, or download a standalone ZIP from [Releases](https://github.com/8eeth0ven/workhub-model/releases).
 
 ```sh
-git clone https://github.com/8eeth0ven/workhub-model.git
-cd workhub-model
 python3 manage.py list
-python3 manage.py install ai-opinion --output ../workhub-local/ai-opinion
+python3 manage.py install industry-atlas --output ../workhub-local/industry-atlas
 ```
 
-Installation only copies explicitly listed source files. It does not collect, execute modules, create schedules, change global settings or overwrite an existing destination. Use `auto-opinion` for the automotive module.
-
-Try clearly labeled fictional material offline:
-
-```sh
-cd ../workhub-local/ai-opinion
-python3 bin/collect.py --demo --data-dir demo/data
-python3 bin/build_data.py --data-dir demo/data
-```
-
-Open `site/index.html`. For live collection, copy `config.example.json` to `config.json`, configure a proxy if required, then run `python3 bin/collect.py --config config.json` and rebuild. Live data defaults to `data/` and cannot share the demo directory.
-
-## Incremental AI reading
-
-The 25 inputs are 23 Google News RSS query groups, TechCrunch AI and AI-related Baidu trends. Articles use an exact 48-hour window. Request failures, parsing errors and valid empty results are distinct. Complete failure retains the last usable snapshot.
-
-Successful baselines and deltas support multiple runs on the same day. The dashboard prioritizes new and changed material and offers a full view. Missing/restored sources or changed ordering do not establish disappearing events. Missing baselines, incomplete coverage and retained data are stated explicitly. Keywords are verification leads, not confirmed facts.
-
-![AI incremental workflow: collection, successful baseline, comparison and brief/dashboard; original illustration in Chinese](docs/images/ai-opinion-flow.svg)
-
-The module includes a [brief prompt](modules/ai-opinion/prompts/daily-brief.en.md) and [four-hour schedule card](modules/ai-opinion/prompts/automation-card.en.md). Collection needs no model key; use your chosen agent for optional summaries. The card is guidance, not an installed automation.
-
-## Research the compute value chain first
-
-The [compute module](modules/compute-search/README.en.md) covers chips, memory, servers and networking, GPU clouds, data centers, power/cooling and demand in seven compact cards. Each shows its revenue model, indicators and one counter-question. GPU catalog starting prices and industry signals have separate views. Regions, configurations, cloud types and billing bases stay distinct. Catalog quotes do not establish rental returns or investment value.
-
-![Compute research: value chain, quotes, primary sources and questions; original Chinese illustration](docs/images/compute-search-cover.svg)
+Installation copies explicitly listed source files. Follow each module's README to collect, import or start its service, then use the page directly or connect it to Workhub. Codex Light, ten palettes and bilingual controls share one design system. [Module integration and packaging](docs/modules.en.md)
 
 <details>
-<summary>View the research workflow</summary>
+<summary>Industry atlas · Visual guide</summary>
 
-![Understand the business, check data and seek counterexamples; original Chinese illustration](docs/images/compute-search-flow.svg)
+![Purposes, location roles, evidence and changes; original Chinese illustration, not a screenshot](docs/images/industry-atlas-cover.svg)
+
+![Claims keep sources and time; original Chinese illustration, not a screenshot](docs/images/industry-atlas-flow.svg)
 
 </details>
 
-## Connect to Workhub
+<details>
+<summary>Code & graph learning · Visual guide</summary>
 
-Build the dashboard, then explicitly run this from the repository:
+![AI-native engineering and project evidence; original Chinese illustration, not a screenshot](docs/images/coding-graph-cover.svg)
 
-```sh
-python3 manage.py connect ai-opinion   --installed ../workhub-local/ai-opinion --workhub ../workhub
-```
+![From primary resources to verifiable experiments; original Chinese illustration, not a screenshot](docs/images/coding-graph-flow.svg)
 
-Point `--workhub` to your [Workhub](https://github.com/8eeth0ven/workhub) checkout. Connecting registers a project and website only. Versions with manual admission require you to select the module directory in Add project and admit it. Following the portal palette is also an explicit choice.
+</details>
 
-## Published contents
+<details>
+<summary>English in slices · Visual guide</summary>
 
-Source and ZIP exports contain only runtime source, example settings, bilingual guides and sanitized prompts. Real reports, logs, personal paths, task identities, sessions, keys, incremental state, generated dashboards and test files are excluded. Installation does not modify existing desktop projects or their automations.
+![Continuous browsing, speech and daily phrases; original Chinese illustration, not a screenshot](docs/images/english-slices-cover.svg)
 
-```sh
-python3 scripts/audit_release.py
-python3 manage.py package ai-opinion --output ../ai-opinion-0.1.0.zip
-```
+![Personal lists and slice learning; original Chinese illustration, not a screenshot](docs/images/english-slices-flow.svg)
 
-See the [module format](docs/modules.en.md) for extension details. Public interfaces and network availability can change. Installing a module does not establish continuous coverage in every environment; inspect source health before judging completeness.
+</details>
+
+The atlas ships fictional examples only; import real research yourself. Coding samples one page of up to six releases per repository, then filters the past 90 days. Static relations are not execution proof. English includes 48 original words, 24 phrases and eight scenes, without membership-list migration.
+
+Real data, settings, keys, sessions, logs and generated pages stay local and are excluded from source and ZIP releases, as are test-only files. Disclosures, inferences and hypotheses remain distinct. Relations do not establish exclusive supply, causality or investment value.
