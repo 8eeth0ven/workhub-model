@@ -1,0 +1,330 @@
+{
+  "schema_version": 1,
+  "purpose": {
+    "zh-CN": "先理解算力产业链，再选择投资方式。",
+    "en": "Understand the compute value chain before choosing an investment route."
+  },
+  "reviewed_on": "2026-11-16",
+  "stages": [
+    {
+      "id": "chips",
+      "name": {
+        "zh-CN": "芯片与制造",
+        "en": "Chips & fabrication"
+      },
+      "business": {
+        "zh-CN": "设计商卖加速芯片，代工厂收制造与封装服务费。",
+        "en": "Designers sell accelerators; foundries earn fabrication and packaging fees."
+      },
+      "indicators": [
+        {
+          "zh-CN": "数据中心收入与毛利率",
+          "en": "Data-center revenue and gross margin"
+        },
+        {
+          "zh-CN": "先进制程、封装交期与产能",
+          "en": "Advanced-node and packaging lead times and capacity"
+        },
+        {
+          "zh-CN": "客户集中度与出口限制",
+          "en": "Customer concentration and export restrictions"
+        }
+      ],
+      "question": {
+        "zh-CN": "交期缩短是产能增加，还是客户少买了？用什么证据区分？",
+        "en": "Do shorter lead times mean more supply or fewer orders? What evidence distinguishes them?"
+      },
+      "links": [
+        {
+          "name": "NVIDIA · Financial reports",
+          "url": "https://investor.nvidia.com/financial-info/financial-reports/"
+        },
+        {
+          "name": "TSMC · Quarterly results",
+          "url": "https://investor.tsmc.com/english/quarterly-results"
+        }
+      ]
+    },
+    {
+      "id": "memory",
+      "name": {
+        "zh-CN": "显存与存储",
+        "en": "Memory & storage"
+      },
+      "business": {
+        "zh-CN": "供应显存和存储芯片，收入受出货量、单价与产品组合影响。",
+        "en": "Suppliers sell memory and storage chips; volume, price and product mix drive revenue."
+      },
+      "indicators": [
+        {
+          "zh-CN": "HBM 供货、认证与产能",
+          "en": "HBM qualification, shipments and capacity"
+        },
+        {
+          "zh-CN": "单价、位元出货与库存",
+          "en": "Selling prices, bit shipments and inventory"
+        },
+        {
+          "zh-CN": "毛利率与扩产支出",
+          "en": "Gross margin and capacity investment"
+        }
+      ],
+      "question": {
+        "zh-CN": "涨价来自持续需求，还是短期缺货？扩产后还能维持吗？",
+        "en": "Are higher prices driven by durable demand or temporary scarcity? Can they survive expansion?"
+      },
+      "links": [
+        {
+          "name": "Micron · Quarterly results",
+          "url": "https://investors.micron.com/financials/quarterly-results/default.aspx"
+        },
+        {
+          "name": "Samsung · Earnings releases",
+          "url": "https://www.samsung.com/global/ir/financial-information/earnings-release/"
+        }
+      ]
+    },
+    {
+      "id": "servers-network",
+      "name": {
+        "zh-CN": "服务器与互联",
+        "en": "Servers & networking"
+      },
+      "business": {
+        "zh-CN": "卖整机、交换机和连接设备，也收集成与服务费。",
+        "en": "Vendors sell servers, switches and connectivity, plus integration and services."
+      },
+      "indicators": [
+        {
+          "zh-CN": "已交付收入与订单积压",
+          "en": "Delivered revenue and backlog"
+        },
+        {
+          "zh-CN": "产品毛利与客户集中度",
+          "en": "Product margins and customer concentration"
+        },
+        {
+          "zh-CN": "应收账款、库存与回款",
+          "en": "Receivables, inventory and cash collection"
+        }
+      ],
+      "question": {
+        "zh-CN": "大订单已交付并收款，还是仍可取消的积压订单？",
+        "en": "Have large orders shipped and been paid, or are they still cancellable backlog?"
+      },
+      "links": [
+        {
+          "name": "Dell · Financial results",
+          "url": "https://investors.delltechnologies.com/financial-information/financial-results"
+        },
+        {
+          "name": "Arista · Financial information",
+          "url": "https://investors.arista.com/Financial-Information/"
+        }
+      ]
+    },
+    {
+      "id": "cloud",
+      "name": {
+        "zh-CN": "云算力与出租",
+        "en": "GPU cloud & rental"
+      },
+      "business": {
+        "zh-CN": "按使用时长或合约出租算力，承担设备、机房与运营成本。",
+        "en": "Operators rent compute by usage or contract and bear equipment, facility and operating costs."
+      },
+      "indicators": [
+        {
+          "zh-CN": "同配置、地区与计费口径的租价",
+          "en": "Rental rates with matching configuration, region and billing"
+        },
+        {
+          "zh-CN": "实际利用率、合约与现货比例",
+          "en": "Actual utilization and contracted versus spot mix"
+        },
+        {
+          "zh-CN": "电费、折旧、融资与运维成本",
+          "en": "Power, depreciation, financing and operating costs"
+        }
+      ],
+      "question": {
+        "zh-CN": "租价上涨后，扣除空置和运营成本，回款能覆盖设备投入吗？",
+        "en": "After idle time and operating costs, can cash receipts cover the equipment investment?"
+      },
+      "links": [
+        {
+          "name": "Runpod · GPU pricing",
+          "url": "https://www.runpod.io/pricing"
+        },
+        {
+          "name": "Lambda · GPU pricing",
+          "url": "https://lambda.com/pricing"
+        }
+      ]
+    },
+    {
+      "id": "datacenters",
+      "name": {
+        "zh-CN": "数据中心",
+        "en": "Data centers"
+      },
+      "business": {
+        "zh-CN": "出租机柜和已供电空间，提供托管及互联服务。",
+        "en": "Operators lease powered space and cabinets, with colocation and interconnection services."
+      },
+      "indicators": [
+        {
+          "zh-CN": "已供电容量、签约负载与入住率",
+          "en": "Energized capacity, contracted load and occupancy"
+        },
+        {
+          "zh-CN": "新租、续租价格与客户集中度",
+          "en": "New and renewal rents and customer concentration"
+        },
+        {
+          "zh-CN": "建设支出、融资到期与回报",
+          "en": "Development spending, debt maturities and returns"
+        }
+      ],
+      "question": {
+        "zh-CN": "签约容量能按时接电吗？若并网推迟，谁承担空置与利息？",
+        "en": "Can contracted capacity get power on time? Who bears vacancy and interest if connection is delayed?"
+      },
+      "links": [
+        {
+          "name": "Equinix · Financial results",
+          "url": "https://investor.equinix.com/financial-information/financial-results"
+        },
+        {
+          "name": "Digital Realty · Quarterly results",
+          "url": "https://investor.digitalrealty.com/financials/quarterly-results"
+        }
+      ]
+    },
+    {
+      "id": "power-cooling",
+      "name": {
+        "zh-CN": "供电与散热",
+        "en": "Power & cooling"
+      },
+      "business": {
+        "zh-CN": "卖供配电、备用电源与冷却系统，另收安装和维护费。",
+        "en": "Vendors sell power distribution, backup power and cooling, plus installation and maintenance."
+      },
+      "indicators": [
+        {
+          "zh-CN": "订单、交付周期与项目验收",
+          "en": "Orders, delivery lead times and project acceptance"
+        },
+        {
+          "zh-CN": "产品毛利、服务收入与回款",
+          "en": "Product margin, service revenue and cash collection"
+        },
+        {
+          "zh-CN": "单位功率成本、PUE 与水耗",
+          "en": "Cost per unit of power, PUE and water use"
+        }
+      ],
+      "question": {
+        "zh-CN": "订单增长兑现为现金了吗？若客户延后建机房，谁先受影响？",
+        "en": "Are growing orders converting to cash? Who is hit first if customers delay facilities?"
+      },
+      "links": [
+        {
+          "name": "Vertiv · Quarterly results",
+          "url": "https://investors.vertiv.com/financials/quarterly-results/default.aspx"
+        },
+        {
+          "name": "Schneider Electric · Financial results",
+          "url": "https://www.se.com/ww/en/about-us/investor-relations/financial-results/"
+        }
+      ]
+    },
+    {
+      "id": "demand",
+      "name": {
+        "zh-CN": "需求与买单方",
+        "en": "Demand & payers"
+      },
+      "business": {
+        "zh-CN": "云厂商和应用公司把算力用于对外服务或内部业务，检验谁持续买单。",
+        "en": "Cloud and application businesses consume compute for services or internal work; check who keeps paying."
+      },
+      "indicators": [
+        {
+          "zh-CN": "资本开支与融资租赁口径",
+          "en": "Capital expenditure and finance-lease definitions"
+        },
+        {
+          "zh-CN": "云业务收入、利润与付费需求",
+          "en": "Cloud revenue, profit and paying demand"
+        },
+        {
+          "zh-CN": "自由现金流与后续采购承诺",
+          "en": "Free cash flow and future purchase commitments"
+        }
+      ],
+      "question": {
+        "zh-CN": "同一笔采购是否被重复算作多层需求？最终付费收入能支撑吗？",
+        "en": "Is one purchase counted at several layers of demand? Can end-customer revenue support it?"
+      },
+      "links": [
+        {
+          "name": "Microsoft · Investor relations",
+          "url": "https://www.microsoft.com/en-us/Investor"
+        },
+        {
+          "name": "Alphabet · Earnings",
+          "url": "https://abc.xyz/investor/earnings/"
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "供需 / Supply & demand",
+      "zh-CN": "供给是可交付资源，需求是愿意付钱的使用；宣传计划不等于已成交。",
+      "en": "Supply is deliverable capacity; demand is usage someone will pay for. Announced plans are not completed sales."
+    },
+    {
+      "term": "利用率 / Utilization",
+      "zh-CN": "已使用时长占可用时长的比例。GPU忙碌率与出租计费率不同，先问清分母。",
+      "en": "Used time divided by available time. GPU activity and billable rental utilization differ; check the denominator."
+    },
+    {
+      "term": "CapEx",
+      "zh-CN": "资本开支：建设或购置长期资产的投入。现金购买与融资租赁要分开核对。",
+      "en": "Capital expenditure funds long-lived assets. Check cash purchases and finance leases separately."
+    },
+    {
+      "term": "FCF",
+      "zh-CN": "自由现金流：常以经营现金流减资本开支估算；各公司口径可能不同。",
+      "en": "Free cash flow is often operating cash flow less capital expenditure; company definitions can differ."
+    },
+    {
+      "term": "PUE",
+      "zh-CN": "数据中心总耗能 ÷ IT设备耗能，观察供电冷却开销；不直接代表算力效率或利润。",
+      "en": "Total facility energy divided by IT equipment energy; it tracks infrastructure overhead, not compute efficiency or profit."
+    },
+    {
+      "term": "VRAM / HBM",
+      "zh-CN": "VRAM是GPU显存；HBM是一类高带宽存储。容量与带宽是不同指标。",
+      "en": "VRAM is GPU memory; HBM is high-bandwidth memory technology. Capacity and bandwidth are different metrics."
+    },
+    {
+      "term": "互联 / Interconnect",
+      "zh-CN": "GPU、服务器之间传数据的通路。带宽、延迟和网络拓扑会影响多卡效率。",
+      "en": "Links carry data between GPUs and servers. Bandwidth, latency and topology affect multi-GPU efficiency."
+    },
+    {
+      "term": "GPU-hour",
+      "zh-CN": "一张GPU使用一小时。整机每小时与单卡每小时不能直接比较，多卡数量需核对。",
+      "en": "One GPU used for one hour. Per-instance and per-GPU rates differ; verify the GPU count."
+    },
+    {
+      "term": "租价与收益 / Rate & return",
+      "zh-CN": "目录起价是报价线索。收益还取决于实际成交、空置、费用、折旧和投入价格。",
+      "en": "A catalog starting rate is a pricing clue. Returns also depend on realized sales, idle time, costs, depreciation and capital paid."
+    }
+  ]
+}

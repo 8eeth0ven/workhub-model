@@ -1,0 +1,14 @@
+{
+  "window_days": 30,
+  "timeout_seconds": 20,
+  "workers": 4,
+  "proxy": "",
+  "max_items_per_source": 50,
+  "enabled_sources": [
+    "runpod-secure",
+    "runpod-community",
+    "nvidia",
+    "amd"
+  ],
+  "stale_retention_hours": 72
+}

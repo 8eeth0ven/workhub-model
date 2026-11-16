@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN" data-workhub-theme="codex-light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>算力产业链研究</title>
+<style data-workhub-design>__WORKHUB_DESIGN_CSS__</style>
+<style>
+*{box-sizing:border-box}body{margin:0;background:var(--wh-bg);color:var(--wh-ink);font:14px/1.65 var(--wh-font)}[hidden]{display:none!important}button,input,select{font:inherit;color:inherit;min-height:34px;background:var(--wh-surface);border:1px solid var(--wh-border);border-radius:7px;padding:5px 9px}button,summary{cursor:pointer}button:hover,button[aria-pressed="true"]{color:var(--wh-accent);background:var(--wh-accent-soft);border-color:var(--wh-border-strong)}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--wh-focus);outline-offset:2px}a{color:inherit;text-decoration:none;overflow-wrap:anywhere}a:hover{text-decoration:underline}p,h1,h2,h3{margin:0}main{padding:12px 16px 20px;max-width:1600px;margin:0 auto}.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding-bottom:10px;border-bottom:1px solid var(--wh-border)}.views{display:flex;gap:4px;flex-wrap:wrap}.views button{white-space:nowrap;font-size:13px}.toolbar input{flex:1 1 210px;min-width:140px;width:100%}.toolbar select{max-width:100%;min-width:0;font-size:12px}.toolbar .appearance{display:flex;gap:6px}.result-line{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;padding:8px 1px;font-size:12px;color:var(--wh-muted)}.notice{padding:8px 10px;margin-bottom:10px;border:1px solid var(--wh-border);border-radius:7px;background:var(--wh-accent-soft);font-size:12px;color:var(--wh-muted)}.notice.warn{color:var(--wh-ink);border-color:var(--wh-border-strong)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.card{min-width:0;padding:13px 14px;border:1px solid var(--wh-border);border-radius:var(--wh-radius);background:var(--wh-surface);overflow-wrap:anywhere}.card-head{display:flex;gap:8px;align-items:baseline;justify-content:space-between;margin-bottom:7px}.card h2,.card h3{font-size:16px;line-height:1.5;font-weight:600}.index{font-size:12px;color:var(--wh-muted);font-variant-numeric:tabular-nums}.business{font-size:14px;line-height:1.7}.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}.tag{font-size:12px;padding:1px 6px;border-radius:4px;background:var(--wh-accent-soft);color:var(--wh-muted)}.question{margin-top:10px;padding-top:9px;border-top:1px solid var(--wh-border);font-size:13px;line-height:1.7}.question b{display:block;font-size:12px;font-weight:500;color:var(--wh-muted);margin-bottom:2px}.links{display:flex;flex-wrap:wrap;gap:5px 12px;margin-top:10px;font-size:12px;color:var(--wh-muted)}.meta{font-size:12px;color:var(--wh-muted)}.price{font-size:23px;line-height:1.4;letter-spacing:-.4px;margin:8px 0 3px;font-variant-numeric:tabular-nums}.price small{font-size:12px;font-weight:400;letter-spacing:0;color:var(--wh-muted)}.specs{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 9px;margin:10px 0 0;font-size:12px}.specs dt{color:var(--wh-muted)}.specs dd{margin:0;overflow-wrap:anywhere}.stamp{padding-top:9px;margin-top:9px;border-top:1px solid var(--wh-border);font-size:12px;color:var(--wh-muted)}.quote-basis{font-size:12px;color:var(--wh-muted)}.signal{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 12px;padding:12px 14px}.signal .meta{grid-column:1 / -1}.signal h2{font-size:14px;line-height:1.65}.signal p{font-size:13px;grid-column:1/-1}.signal details{grid-column:1/-1}.signals{display:grid;gap:8px}.pill{font-size:11px;white-space:nowrap;border:1px solid var(--wh-border);border-radius:4px;padding:0 5px;color:var(--wh-muted);align-self:start}.empty{grid-column:1/-1;padding:30px 14px;text-align:center;font-size:13px;color:var(--wh-muted);border:1px solid var(--wh-border);border-radius:var(--wh-radius)}.details-row{margin-top:14px;padding-top:10px;border-top:1px solid var(--wh-border)}summary{font-size:12px;color:var(--wh-muted);width:fit-content;max-width:100%}.source-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:9px}.source-card{padding:9px 10px;border:1px solid var(--wh-border);border-radius:7px;min-width:0;overflow-wrap:anywhere}.source-card .card-head{margin-bottom:3px;font-size:13px}.status-error{color:var(--wh-warning)}.glossary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}.glossary dt{font-size:13px;font-weight:550}.glossary dd{margin:3px 0 0;font-size:13px;color:var(--wh-muted)}footer{font-size:12px;color:var(--wh-muted);padding-top:12px}.sr{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar input{flex-basis:180px}.source-grid,.glossary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){main{padding:10px}.toolbar{gap:7px}.views{flex:1 1 100%}.views button{flex:1 1 auto}.toolbar input{flex:1 1 100%;min-width:0}.toolbar>select{flex:1 1 130px}.toolbar .appearance{margin-left:auto;flex:0 1 auto}.appearance select{max-width:110px;padding:4px 6px}.grid,.source-grid,.glossary{grid-template-columns:minmax(0,1fr)}.card{padding:12px}.signal{grid-template-columns:minmax(0,1fr)}.signal .pill{justify-self:start}.result-line{font-size:12px}.result-line span:last-child{flex-basis:100%}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body data-workhub-native>
+<main>
+  <div class="toolbar">
+    <nav id="views" class="views" aria-label="研究视图"></nav>
+    <label class="sr" for="search" data-i18n="search">搜索产业、指标、型号或来源</label><input id="search" type="search" autocomplete="off" placeholder="搜索产业、指标、型号或来源">
+    <select id="stage" aria-label="产业环节"></select>
+    <div class="appearance"><select id="language" aria-label="界面语言"><option value="zh-CN">中文</option><option value="en">English</option></select><select id="theme" aria-label="配色"></select></div>
+  </div>
+  <div class="result-line"><span id="result-count" aria-live="polite"></span><span id="generated"></span></div>
+  <div id="demo-note" class="notice warn" hidden></div>
+  <div id="health-note" class="notice warn" role="status" hidden></div>
+  <div id="view-note" class="notice"></div>
+  <div id="board" class="grid"></div>
+  <details id="source-details" class="details-row"><summary id="source-summary"></summary><div id="source-list" class="source-grid"></div></details>
+  <details id="glossary-details" class="details-row"><summary data-i18n="glossary">看懂这些词</summary><dl id="glossary" class="glossary"></dl></details>
+  <footer data-i18n="scope">先核对原始资料，再判断投资方式。租价是观察线索，不能单独证明需求、利润或投资价值。</footer>
+</main>
+<script id="report-data" type="application/json">__DATA_JSON__</script>
+<script id="research-data" type="application/json">__RESEARCH_JSON__</script>
+<script>__WORKHUB_THEME_JS__</script>
+<script>
+(() => {
+  'use strict';
+  const raw=JSON.parse(document.getElementById('report-data').textContent), DATA=raw.snapshot||raw;
+  const RESEARCH=JSON.parse(document.getElementById('research-data').textContent);
+  const $=id=>document.getElementById(id);
+  const strings={
+    'zh-CN':{title:'算力产业链研究',chain:'产业链',offers:'GPU 报价',signals:'产业动态',search:'搜索产业、指标、型号或来源',allStages:'全部环节',stage:'产业环节',view:'研究视图',language:'界面语言',theme:'配色',question:'值得追问',source:'原始资料',glossary:'看懂这些词',chainNote:'先看各环节怎样赚钱，再用指标与原始资料检验判断。',offersNote:'目录起价与手工报价分开标注；不是可租订单。对比前请核对 GPU、地区、数量与计费口径。',signalsNote:'重复资料合并来源；未收录不代表没有发生。原文事实与投资判断需要分开核实。',scope:'先核对原始资料，再判断投资方式。租价是观察线索，不能单独证明需求、利润或投资价值。',demo:'虚构演示 · 报价、动态与来源状态仅用于展示，不是市场数据。',noMatch:'没有符合当前筛选的内容。',noOffers:'暂无报价。先采集或导入有来源与时间的报价，再构建页面。',noSignals:'暂无收录动态。请查看来源状态；空结果不代表产业没有变化。',cards:'张研究卡',offersCount:'条报价',signalsCount:'条动态',generated:'数据采集',unknown:'未知',observed:'采集',published:'发布',catalog:'目录起价',manual:'手工报价',quote:'报价',starting:'起',cloud:'云类型',secure:'Secure Cloud',community:'Community Cloud',gpuCount:'GPU 数量',memory:'单卡显存',region:'地区',billing:'计费方式',availability:'可用性',unit:'计价单位',provider:'提供方',on_demand:'按需','on-demand':'按需','GPU-hour':'GPU·小时','server-hour':'整机·小时',spot:'竞价 / 可中断',reserved:'预留',gpu_hour:'GPU·小时',server_hour:'整机·小时',ok:'成功',empty:'无匹配',error:'失败',sourceHealth:'来源状态',checked:'检查',merged:'个来源',noSources:'尚无采集状态。',retained:'本轮来源全部失败，保留上次可用数据；不要把旧报价当成当前行情。',partial:'部分来源失败，当前资料不完整。',failed:'最近采集全部失败，尚无可用资料。',stale:'数据已超过 36 小时，请重新核实。',unknownTime:'采集时间未知，报价时效无法核实。',oldData:'保留的旧数据',cardsSingular:'张研究卡',offersCountSingular:'条报价',signalsCountSingular:'条动态','codex-light':'Codex 明亮','codex-dark':'Codex 深色',moss:'苔绿',fog:'雾蓝',graphite:'石墨',sand:'暖沙',orange:'橙白',teal:'青瓷',rose:'玫瑰',indigo:'靛蓝'},
+    en:{title:'Compute value-chain research',chain:'Value chain',offers:'GPU quotes',signals:'Updates',search:'Search sectors, metrics, GPUs or sources',allStages:'All stages',stage:'Value-chain stage',view:'Research view',language:'Language',theme:'Colors',question:'Question to test',source:'Original material',glossary:'Terms in plain language',chainNote:'Understand how each stage earns money, then test your view against metrics and original material.',offersNote:'Catalog starting prices and manual quotes are labeled separately, not available orders. Match GPUs, regions, quantities and billing before comparing.',signalsNote:'Duplicate material shares one card with its sources. Missing coverage does not mean nothing happened; verify facts before drawing an investment conclusion.',scope:'Check original material before choosing how to invest. Rental prices alone do not establish demand, profits or investment value.',demo:'Fictional demo · Quotes, updates and source statuses are examples, not market data.',noMatch:'No material matches the current filters.',noOffers:'No quotes yet. Collect or import timestamped, sourced quotes, then rebuild.',noSignals:'No updates collected yet. Check source health; an empty result does not establish an absence of change.',cards:'research cards',offersCount:'quotes',signalsCount:'updates',generated:'Data collected',unknown:'Unknown',observed:'Collected',published:'Published',catalog:'Catalog starting price',manual:'Manual quote',quote:'Quote',starting:'from',cloud:'Cloud type',secure:'Secure Cloud',community:'Community Cloud',gpuCount:'GPU count',memory:'VRAM per GPU',region:'Region',billing:'Billing',availability:'Availability',unit:'Pricing unit',provider:'Provider',on_demand:'On demand','on-demand':'On demand','GPU-hour':'GPU-hour','server-hour':'server-hour',spot:'Spot / interruptible',reserved:'Reserved',gpu_hour:'GPU-hour',server_hour:'server-hour',ok:'Success',empty:'No match',error:'Failed',sourceHealth:'Source health',checked:'Checked',merged:'sources',noSources:'No collection status yet.',retained:'Every source failed in the latest run. Previous data is retained; its quotes are not current market evidence.',partial:'Some sources failed. The available material is incomplete.',failed:'All sources failed and no usable material is available.',stale:'Data is more than 36 hours old; verify it again.',unknownTime:'The collection time is unknown; quote freshness cannot be verified.',oldData:'Retained older data',cardsSingular:'research card',offersCountSingular:'quote',signalsCountSingular:'update','codex-light':'Codex Light','codex-dark':'Codex Dark',moss:'Moss',fog:'Mist blue',graphite:'Graphite',sand:'Warm sand',orange:'Orange',teal:'Celadon',rose:'Rose',indigo:'Indigo'}
+  };
+  const t=key=>strings[language][key]||key;
+  const localized=value=>typeof value==='string'?value:value?.[language]||value?.['zh-CN']||value?.en||'';
+  const make=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=String(text);return n;};
+  const safeURL=value=>{try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)&&!u.username&&!u.password?u.href:'';}catch{return '';}};
+  const stamp=value=>{if(!value)return t('unknown');const d=new Date(value);return Number.isFinite(d.getTime())?d.toLocaleString(language==='en'?'en-GB':'zh-CN',{dateStyle:'medium',timeStyle:'short'}):t('unknown');};
+  const str=value=>typeof value==='string'||typeof value==='number'?String(value):'';
+  const shown=value=>value===null||value===undefined||value===''||value==='unknown'?t('unknown'):str(value);
+  const stages=Array.isArray(RESEARCH.stages)?RESEARCH.stages:[], items=Array.isArray(DATA.items)?DATA.items:[];
+  const stageName=id=>localized(stages.find(s=>s.id===id)?.name)||id||t('unknown');
+  const languageKey='workhub-language',stateKey='workhub-compute-search-state-v1';let language='zh-CN';
+  let state={view:'chain',stage:'all',query:''};
+  try{const lang=localStorage.getItem(languageKey);if(['zh-CN','en'].includes(lang))language=lang;const saved=JSON.parse(localStorage.getItem(stateKey)||'null');if(saved&&typeof saved==='object'){if(['chain','offers','signals'].includes(saved.view))state.view=saved.view;if(saved.stage==='all'||stages.some(s=>s.id===saved.stage))state.stage=saved.stage;if(typeof saved.query==='string')state.query=saved.query.slice(0,1000);}}catch{}
+  const save=()=>{try{localStorage.setItem(stateKey,JSON.stringify(state));}catch{}};
+  const matches=values=>!state.query.trim()||values.join(' ').toLocaleLowerCase().includes(state.query.trim().toLocaleLowerCase());
+  function linkNode(value,label){const href=safeURL(value),n=make(href?'a':'span','',label);if(href){n.href=href;n.target='_blank';n.rel='noopener noreferrer';}return n;}
+  function options(node,values,selected){node.replaceChildren(...values.map(([value,label])=>{const n=make('option','',label);n.value=value;n.selected=value===selected;return n;}));}
+  function currentTheme(){return document.documentElement.getAttribute('data-workhub-theme')||window.WorkhubEmbeddedTheme.getTheme();}
+  function researchCard(s,index){
+    const card=make('article','card research-card'),head=make('div','card-head');head.append(make('h2','',localized(s.name)),make('span','index',String(index+1).padStart(2,'0')));card.append(head,make('p','business',localized(s.business)));
+    const tags=make('div','tags');(s.indicators||[]).forEach(v=>tags.append(make('span','tag',localized(v))));card.append(tags);
+    const q=make('p','question');q.append(make('b','',t('question')),make('span','',localized(s.question)));card.append(q);
+    const links=make('div','links');(s.links||[]).forEach(v=>links.append(linkNode(v.url,localized(v.name)+' ↗')));card.append(links);return card;
+  }
+  function spec(list,key,value){list.append(make('dt','',t(key)),make('dd','',shown(value)));}
+  function quoteCard(item){
+    const q=item.quote||{},card=make('article','card quote-card'),head=make('div','card-head');head.append(make('h2','',q.gpu||item.title||t('unknown')),make('span','pill',q.cloud==='secure'?t('secure'):q.cloud==='community'?t('community'):shown(q.cloud)));card.append(head);
+    const catalog=['catalog_from','catalog_starting'].includes(q.price_basis)||item.provenance==='official_catalog',basis=catalog?'catalog':q.price_basis==='manual'||item.provenance==='manual'?'manual':'quote';card.append(make('div','quote-basis',`${item.provider||t('unknown')} · ${t(basis)}`));
+    const price=make('p','price'),valid=typeof q.price==='number'&&Number.isFinite(q.price)&&q.price>=0;
+    const unit=t(q.unit||'unknown');price.append(document.createTextNode(valid?`${str(q.currency)||t('unknown')} ${q.price.toLocaleString(language==='en'?'en-US':'zh-CN',{maximumFractionDigits:5})}`:t('unknown')),make('small','',valid?` / ${unit}${catalog?' · '+t('starting'):''}`:''));card.append(price);
+    const specs=make('dl','specs');spec(specs,'gpuCount',q.gpu_count);spec(specs,'memory',q.vram_gb==null?t('unknown'):`${shown(q.vram_gb)} GB`);spec(specs,'region',q.region);spec(specs,'billing',q.billing?t(q.billing):t('unknown'));spec(specs,'availability',q.availability?t(q.availability):t('unknown'));card.append(specs);
+    const footer=make('div','stamp');footer.append(make('span','',`${t('observed')}: ${stamp(item.observed_at)}${item.stale?' · '+t('oldData'):''}`));const links=make('div','links');links.append(linkNode(item.url,t('source')+' ↗'));footer.append(links);card.append(footer);return card;
+  }
+  function signalCard(item){
+    const card=make('article','card signal'),h=make('h2');h.append(linkNode(item.url,item.title||t('unknown')));card.append(h,make('span','pill',stageName(item.stage)));
+    const meta=make('div','meta');meta.textContent=`${item.provider||t('unknown')} · ${t(item.published_at?'published':'observed')}: ${stamp(item.published_at||item.observed_at)}${item.stale?' · '+t('oldData'):''}`;card.append(meta);if(item.summary)card.append(make('p','',item.summary));
+    const refs=Array.isArray(item.sources)?item.sources:[];if(refs.length>1){const details=make('details'),summary=make('summary','',`${refs.length} ${t('merged')}`),links=make('div','links');refs.forEach(s=>links.append(linkNode(s.url,s.name||t('source'))));details.append(summary,links);card.append(details);}return card;
+  }
+  function renderBoard(){
+    const board=$('board');board.className=state.view==='signals'?'signals':'grid';board.replaceChildren();
+    let pool=[];
+    if(state.view==='chain')pool=stages.filter(s=>(state.stage==='all'||s.id===state.stage)&&matches([localized(s.name),localized(s.business),localized(s.question),...(s.indicators||[]).map(localized),...(s.links||[]).map(l=>localized(l.name)),s.id]));
+    else pool=items.filter(i=>(state.view==='offers'?i.kind==='offer':['signal','filing'].includes(i.kind))&&(state.stage==='all'||i.stage===state.stage)&&matches([i.title,i.summary,i.provider,stageName(i.stage),JSON.stringify(i.quote||{}),...(i.sources||[]).map(s=>s.name)]));
+    const key=state.view==='chain'?'cards':state.view==='offers'?'offersCount':'signalsCount';$('result-count').textContent=`${pool.length} ${t(language==='en'&&pool.length===1?key+'Singular':key)}`;
+    $('view-note').textContent=t(state.view==='chain'?'chainNote':state.view==='offers'?'offersNote':'signalsNote');
+    if(!pool.length){board.append(make('div','empty',t(state.query||state.stage!=='all'?'noMatch':state.view==='offers'?'noOffers':state.view==='signals'?'noSignals':'noMatch')));return;}
+    pool.forEach(i=>board.append(state.view==='chain'?researchCard(i,stages.indexOf(i)):state.view==='offers'?quoteCard(i):signalCard(i)));
+  }
+  function sourceDetail(value){
+    const detail=str(value),accepted=/^accepted_items:(\d+)$/.exec(detail),http=/^http_status_(\d{3})$/.exec(detail);
+    if(accepted){const count=Number(accepted[1]);return language==='en'?`Accepted ${count} ${count===1?'item':'items'}`:`收录 ${count} 条`;}
+    if(http)return language==='en'?`The endpoint returned HTTP ${http[1]}`:`接口返回 HTTP ${http[1]}`;
+    const labels={network_failure:['连接失败','Connection failed'],invalid_source_payload:['资料格式无法识别','Unrecognized data format'],response_too_large:['返回资料过大','Response exceeded the size limit'],source_deadline:['来源响应超时','Source timed out'],'fictional examples; not market observations':['虚构示例，非市场数据','Fictional examples, not market data']};
+    return labels[detail]?.[language==='en'?1:0]||detail;
+  }
+  function renderHealth(){
+    const run=DATA.last_run||raw.last_run||DATA,sources=Array.isArray(run.sources)?run.sources:[],counts={ok:0,empty:0,error:0};sources.forEach(s=>{if(s.status in counts)counts[s.status]++;});
+    $('source-summary').textContent=`${t('sourceHealth')} · ${['ok','empty','error'].map(k=>`${t(k)} ${counts[k]}`).join(' / ')}`;
+    $('source-list').replaceChildren(...sources.map(s=>{const card=make('div','source-card'),head=make('div','card-head');head.append(linkNode(s.url,s.name||s.id||t('unknown')),make('span',s.status==='error'?'status-error':'meta',t(s.status||'unknown')));card.append(head,make('p','meta',`${t('checked')}: ${stamp(s.checked_at)}`));if(s.detail)card.append(make('p','meta',sourceDetail(s.detail)));return card;}));
+    if(!sources.length)$('source-list').append(make('p','meta',t('noSources')));
+    const notes=[];if(DATA.mode!=='demo'){if(sources.length&&counts.error===sources.length)notes.push(t(items.length?'retained':'failed'));else if(counts.error)notes.push(t('partial'));const age=(Date.now()-Date.parse(DATA.generated_at))/3600000;if(Number.isFinite(age)&&age>36)notes.push(t('stale'));else if(!Number.isFinite(age))notes.push(t('unknownTime'));}
+    $('health-note').hidden=!notes.length;$('health-note').textContent=notes.join(' ');
+  }
+  function renderChrome(){
+    document.documentElement.lang=language;document.title=t('title');document.querySelectorAll('[data-i18n]').forEach(n=>n.textContent=t(n.dataset.i18n));
+    $('views').setAttribute('aria-label',t('view'));$('views').replaceChildren(...['chain','offers','signals'].map(v=>{const b=make('button','',t(v));b.type='button';b.setAttribute('aria-pressed',String(state.view===v));b.addEventListener('click',()=>{state.view=v;save();renderChrome();renderBoard();});return b;}));
+    options($('stage'),[['all',t('allStages')],...stages.map(s=>[s.id,localized(s.name)])],state.stage);$('stage').setAttribute('aria-label',t('stage'));$('search').placeholder=t('search');$('search').value=state.query;$('search').setAttribute('aria-label',t('search'));
+    $('language').value=language;$('language').setAttribute('aria-label',t('language'));$('theme').setAttribute('aria-label',t('theme'));options($('theme'),window.WorkhubEmbeddedTheme.themes.map(v=>[v,t(v)]),currentTheme());
+    $('generated').textContent=`${t('generated')}: ${stamp(DATA.generated_at)}`;$('demo-note').hidden=DATA.mode!=='demo';$('demo-note').textContent=t('demo');
+    $('glossary').replaceChildren(...(RESEARCH.glossary||[]).map(g=>{const div=make('div');div.append(make('dt','',g.term),make('dd','',localized(g)));return div;}));renderHealth();
+  }
+  function applyLanguage(value,persist=true){if(!['zh-CN','en'].includes(value))return;language=value;if(persist){try{localStorage.setItem(languageKey,value);}catch{}}renderChrome();renderBoard();}
+  const allowedParents=new Set(['http://127.0.0.1:8787']),configured=document.documentElement.getAttribute('data-workhub-parent-origin');
+  if(configured){try{const u=new URL(configured);if(['http:','https:'].includes(u.protocol)&&['127.0.0.1','localhost','[::1]','::1'].includes(u.hostname)&&!u.username&&!u.password&&!u.search&&!u.hash&&u.pathname==='/'&&(u.origin===configured||u.origin+'/'===configured))allowedParents.add(u.origin);}catch{}}
+  function requestLanguage(){if(window.parent!==window)for(const origin of allowedParents)window.parent.postMessage({type:'workhub:language-request'},origin);}
+  window.addEventListener('message',event=>{if(window.parent===window||event.source!==window.parent||!allowedParents.has(event.origin)||!event.data||typeof event.data!=='object')return;if(event.data.type==='workhub:language')applyLanguage(event.data.language);if(event.data.type==='workhub:theme')options($('theme'),window.WorkhubEmbeddedTheme.themes.map(v=>[v,t(v)]),currentTheme());});
+  window.addEventListener('pageshow',requestLanguage);window.addEventListener('storage',event=>{if(event.key===languageKey)applyLanguage(event.newValue||'zh-CN',false);if(event.key==='workhub-theme'||event.key===null)options($('theme'),window.WorkhubEmbeddedTheme.themes.map(v=>[v,t(v)]),currentTheme());});
+  $('language').addEventListener('change',()=>applyLanguage($('language').value));$('stage').addEventListener('change',()=>{state.stage=$('stage').value;save();renderBoard();});$('search').addEventListener('input',()=>{state.query=$('search').value;save();renderBoard();});
+  $('theme').addEventListener('change',()=>{const value=$('theme').value;if(!window.WorkhubEmbeddedTheme.themes.includes(value))return;document.documentElement.setAttribute('data-workhub-theme',value);try{localStorage.setItem('workhub-theme',value);}catch{}});
+  applyLanguage(language,false);requestLanguage();
+})();
+</script>
+</body>
+</html>

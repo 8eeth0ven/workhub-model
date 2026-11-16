@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | Automotive opinion monitor | Automotive news, Li Auto, risk keywords and trends | [Guide](modules/auto-opinion/README.en.md) · [ZIP](https://github.com/8eeth0ven/workhub-model/releases/download/v0.1.0/auto-opinion-0.1.0.zip) |
 | AI product opinion monitor | Products, models, hardware, public statements and trends; new and changed material first | [Guide](modules/ai-opinion/README.en.md) · [ZIP](https://github.com/8eeth0ven/workhub-model/releases/download/ai-opinion-v0.1.0/ai-opinion-0.1.0.zip) |
+| Compute investment research | Seven value-chain stages, GPU catalog quotes, industry signals and Socratic questions | [Guide](modules/compute-search/README.en.md) · [ZIP](https://github.com/8eeth0ven/workhub-model/releases/download/compute-search-v0.1.0/compute-search-0.1.0.zip) |
 
 ![AI module: compare the last successful snapshot with this run; original illustration in Chinese, not a screenshot](docs/images/ai-opinion-cover.svg)
 
@@ -45,6 +46,19 @@ Successful baselines and deltas support multiple runs on the same day. The dashb
 ![AI incremental workflow: collection, successful baseline, comparison and brief/dashboard; original illustration in Chinese](docs/images/ai-opinion-flow.svg)
 
 The module includes a [brief prompt](modules/ai-opinion/prompts/daily-brief.en.md) and [four-hour schedule card](modules/ai-opinion/prompts/automation-card.en.md). Collection needs no model key; use your chosen agent for optional summaries. The card is guidance, not an installed automation.
+
+## Research the compute value chain first
+
+The [compute module](modules/compute-search/README.en.md) covers chips, memory, servers and networking, GPU clouds, data centers, power/cooling and demand in seven compact cards. Each shows its revenue model, indicators and one counter-question. GPU catalog starting prices and industry signals have separate views. Regions, configurations, cloud types and billing bases stay distinct. Catalog quotes do not establish rental returns or investment value.
+
+![Compute research: value chain, quotes, primary sources and questions; original Chinese illustration](docs/images/compute-search-cover.svg)
+
+<details>
+<summary>View the research workflow</summary>
+
+![Understand the business, check data and seek counterexamples; original Chinese illustration](docs/images/compute-search-flow.svg)
+
+</details>
 
 ## Connect to Workhub
 

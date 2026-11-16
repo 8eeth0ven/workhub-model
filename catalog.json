@@ -28,6 +28,19 @@
         "zh-CN": "采集公开AI产品、硬件和人物言论，生成带增量与来源状态的日报和本地看板。",
         "en": "Collect public AI product, hardware and speaker headlines, with incremental briefs, source health and a local dashboard."
       }
+    },
+    {
+      "id": "compute-search",
+      "version": "0.1.0",
+      "path": "modules/compute-search",
+      "name": {
+        "zh-CN": "算力产业链研究",
+        "en": "Compute investment research"
+      },
+      "description": {
+        "zh-CN": "用七类研究卡、官方GPU目录报价和产业动态梳理算力投资问题，保守去重并保留来源与未知。",
+        "en": "Explore seven value-chain stages, official GPU catalog quotes and industry signals with conservative deduplication, sources and unknowns."
+      }
     }
   ]
 }

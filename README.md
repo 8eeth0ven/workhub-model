@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | 车圈舆情监控 | 汽车新闻、理想专项、风险关键词与热搜 | [说明](modules/auto-opinion/README.md) · [ZIP](https://github.com/8eeth0ven/workhub-model/releases/download/v0.1.0/auto-opinion-0.1.0.zip) |
 | AI 产品舆情监控 | 产品、模型、硬件、公开言论与热搜，每轮先看新增和变化 | [说明](modules/ai-opinion/README.md) · [ZIP](https://github.com/8eeth0ven/workhub-model/releases/download/ai-opinion-v0.1.0/ai-opinion-0.1.0.zip) |
+| 算力产业链研究 | 七类研究卡、GPU 目录报价、产业动态与苏格拉底追问 | [说明](modules/compute-search/README.md) · [ZIP](https://github.com/8eeth0ven/workhub-model/releases/download/compute-search-v0.1.0/compute-search-0.1.0.zip) |
 
 ![AI 模块：比较上次成功与本轮采集；原创示意，非截图](docs/images/ai-opinion-cover.svg)
 
@@ -45,6 +46,19 @@ python3 bin/build_data.py --data-dir demo/data
 ![AI 增量流程：采集、成功基线、变化比较与简报看板；原创示意](docs/images/ai-opinion-flow.svg)
 
 模块附 [简报提示词](modules/ai-opinion/prompts/daily-brief.md) 和 [每四小时注册卡](modules/ai-opinion/prompts/automation-card.md)。采集无需模型 Key；总结可交给自己选择的 Agent。注册卡是配置参考，不代表任务已创建。
+
+## 先研究算力产业链
+
+[算力模块](modules/compute-search/README.md)把芯片、存储、服务器与互联、云算力、数据中心、电力散热和需求方放进七张研究卡。每张只留赚钱方式、观察指标和一个反证问题；GPU 目录起价与产业动态分别查看。不同地区、配置、云类型和计费口径保留差异，不按显卡名粗暴合并。目录报价不能证明出租收益或投资价值。
+
+![算力研究：产业链、报价、原始资料与待验证问题；原创示意](docs/images/compute-search-cover.svg)
+
+<details>
+<summary>查看研究流程图</summary>
+
+![看懂生意、核对数据、寻找反例；原创示意](docs/images/compute-search-flow.svg)
+
+</details>
 
 ## 接进 Workhub
 

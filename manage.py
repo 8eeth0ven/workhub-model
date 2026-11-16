@@ -242,10 +242,13 @@ def connect(args: argparse.Namespace) -> dict:
         raise ModuleError("installed directory is not the selected module")
     site_entry = safe_relative(manifest.get("site", {}).get("entry", ""))
     regular_file(installed, site_entry)
+    layout = manifest.get("site", {}).get("layout", "radar")
+    if layout not in {"radar", "library", "brief"}:
+        raise ModuleError("unsupported site layout")
     workhub = Path(args.workhub).expanduser().absolute()
     installer = regular_file(workhub, PurePosixPath("scripts/install.py"))
     command = [sys.executable, str(installer), "--project", str(installed), "--site-dir", str(installed / site_entry.parent),
-               "--site-name", manifest["name"]["zh-CN"], "--template", "radar"]
+               "--site-name", manifest["name"]["zh-CN"], "--template", layout]
     result = {"action": "connect", "id": args.module, "dry_run": args.dry_run, "command": command,
               "note": "Connects the built site only; does not start collection, a server or an automation."}
     if not args.dry_run:
