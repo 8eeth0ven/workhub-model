@@ -54,3 +54,12 @@ Installation copies explicitly listed source files. Follow each module's README 
 The atlas ships fictional examples only; import real research yourself. Coding samples one page of up to six releases per repository, then filters the past 90 days. Static relations are not execution proof. English includes 48 original words, 24 phrases and eight scenes, without membership-list migration.
 
 Real data, settings, keys, sessions, logs and generated pages stay local and are excluded from source and ZIP releases, as are test-only files. Disclosures, inferences and hypotheses remain distinct. Relations do not establish exclusive supply, causality or investment value.
+
+<details>
+<summary>AI story grouping and recurrence · Visual guide</summary>
+
+![Grouped stories with original sources; original Chinese illustration, not a screenshot](docs/images/ai-opinion-dedup-cover.svg)
+
+![Cumulative and consecutive recorded dates; original Chinese illustration, not a screenshot](docs/images/ai-opinion-dedup-flow.svg)
+
+</details>

@@ -54,3 +54,12 @@ python3 manage.py install industry-atlas --output ../workhub-local/industry-atla
 产业图谱下载包仅带虚构演示，真实资料自行导入。Coding 发布采样每仓只读一页最多六条，再筛近九十天；静态关系不等于运行证明。英语预置为 48 个自编词、24 句、八个场景，不包含会员词表迁移。
 
 真实资料、配置、Key、会话、日志和生成页面保存在本机，不随源码或 ZIP 发布；测试专用内容同样排除。来源披露、推断和假设分别保留，关系不自动证明独家供应、因果或投资价值。
+
+<details>
+<summary>AI 舆情去重与跨日记录 · 看图了解</summary>
+
+![同题合卡、来源展开；原创示意，非截图](docs/images/ai-opinion-dedup-cover.svg)
+
+![按真实记录日期区分累计与连续；原创示意，非截图](docs/images/ai-opinion-dedup-flow.svg)
+
+</details>
