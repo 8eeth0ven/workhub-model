@@ -12,10 +12,9 @@ python3 bin/build_data.py --data-dir demo/data
 # Live collection uses a different directory.
 cp config.example.json config.json
 python3 bin/collect.py --config config.json
-python3 bin/build_data.py
 ```
 
-The defaults are the module's `data/` and `site/` directories. Pass the same `--data-dir` to collector and builder when customizing it. Real configuration, reports, logs and generated pages are local runtime material, excluded from source and ZIP publication.
+Live collection with the default `data/` builds the module `site/` under the same collection lock, including the failure status after all inputs fail. Collection or build failure exits nonzero. A custom `--data-dir` never implicitly overwrites the default site; pass `--site-output-dir` for an automatic build, or use the same `--data-dir` with the builder. Real configuration, reports, logs and generated pages are local runtime material, excluded from source and ZIP publication.
 
 ## Twenty-five inputs
 
@@ -35,7 +34,7 @@ Settings include `window_days`, `timezone`, `workers`, `timeout_seconds`, `retri
 python3 bin/collect.py --source techcrunch-ai --source baidu --timeout 5 --retries 0
 ```
 
-Default concurrency is four, limited to eight. Each request defaults to 15 seconds and one retry; zero to two retries are configurable. Reading enforces the remaining total budget and a body-size limit. Truncated or malformed HTTP responses remain per-source errors rather than terminating the whole batch.
+Default concurrency is four, limited to eight. Google queries are serialized with at least one second between requests in each run; the starting query rotates every four hours to avoid repeatedly starving the same sources. After HTTP 429, later Google queries are marked deferred, with no immediate retry or route switching; other sources continue. Each request defaults to 15 seconds and one retry for transient network errors; zero to two retries are configurable. Reading enforces the remaining total budget and a body-size limit. Truncated or malformed HTTP responses remain per-source errors rather than terminating the whole batch.
 
 - `ok`: the request and parsing succeeded and accepted headlines.
 - `empty`: parsing succeeded but there were no entries, no eligible matches or only duplicates; a reason is recorded.
@@ -63,7 +62,7 @@ With a usable recent baseline, `delta` contains `new_ids`, `changed_ids`, `uncha
 
 The seen index retains at most 14 days, 10,000 URL identities and eight hashed aliases per identity. This prevents a source returning after a partial run from unnecessarily resurfacing known headlines as new. Missing coverage never produces a removed-event claim. An invalid index explicitly falls back to the preceding usable snapshot. Fingerprint changes require source verification before being described as substantive developments.
 
-All-source failure sets `comparison_skipped: true` and leaves the successful baseline, previous report and seen history unadvanced. Retained material must not be presented as current news. The successful checkpoint commits atomically; JSON and Markdown mirrors recover on the next run after an interrupted write, preventing an index from silently advancing ahead of its usable report. Each output file is limited to 24 MiB.
+All-source failure, or a partial run with no accepted items when a previous snapshot exists, sets `comparison_skipped: true` and leaves the successful baseline, previous report and seen history unadvanced. Retained material must not be presented as current news. The successful checkpoint commits atomically; JSON and Markdown mirrors recover on the next run after an interrupted write, preventing an index from silently advancing ahead of its usable report. Each output file is limited to 24 MiB.
 
 ## Directory isolation
 

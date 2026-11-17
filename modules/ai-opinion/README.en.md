@@ -18,9 +18,8 @@ To collect live records, use the separate `data/` directory.
 ```sh
 cp config.example.json config.json
 python3 bin/collect.py --config config.json
-python3 bin/build_data.py
 ```
 
-The first run establishes a baseline. Subsequent changes are listed in `data/delta.json`. Check source failures in `data/last-run.json` and open the original report before interpreting a missing headline.
+Live collection using the default data directory automatically rebuilds the dashboard. For a custom data directory, pass `--site-output-dir` to choose an output. Build failures return a nonzero exit status. The first run establishes a baseline. Subsequent changes are listed in `data/delta.json`. Check source failures in `data/last-run.json` and open the original report before interpreting a missing headline.
 
 [Collection and comparison rules](docs/collector.en.md) · [Brief prompt](prompts/daily-brief.en.md) · [Optional schedule](prompts/automation-card.en.md)

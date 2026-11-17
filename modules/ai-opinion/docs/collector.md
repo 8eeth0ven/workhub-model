@@ -12,10 +12,9 @@ python3 bin/build_data.py --data-dir demo/data
 # 真实采集使用另外的目录。
 cp config.example.json config.json
 python3 bin/collect.py --config config.json
-python3 bin/build_data.py
 ```
 
-两个命令默认分别读取和写入本模块的 `data/`、`site/`。自定义数据目录时，给采集器和构建器传相同的 `--data-dir`。真实配置、日报、日志和生成的网页属于本机运行资料，不随源码或 ZIP 发布。
+默认真实采集结束后在同一采集锁内构建本模块 `site/`，即使全源失败也更新失败提示；采集失败或构建失败返回非零状态。自定义 `--data-dir` 不会隐式覆盖默认站点；可指定 `--site-output-dir` 同步构建，或手动给构建器传相同的 `--data-dir`。真实配置、日报、日志和生成的网页属于本机运行资料，不随源码或 ZIP 发布。
 
 ## 25 个采集入口
 
@@ -42,7 +41,7 @@ python3 bin/build_data.py
 python3 bin/collect.py --source techcrunch-ai --source baidu --timeout 5 --retries 0
 ```
 
-默认并发 4 个源，上限 8；每次请求默认 15 秒、最多重试 1 次，可配置 0～2 次。请求读取检查剩余总预算，限制响应体大小，并把截断响应等协议异常隔离到单个源。状态明确区分：
+默认并发 4 个源，上限 8；Google 查询在同一轮串行且至少间隔一秒，每四小时轮换优先顺序以避免固定来源总排在限流之后。遇到 HTTP 429 后本轮剩余 Google 查询标记为暂缓，不立即重试或改走直连；其他来源继续采集。每次请求默认 15 秒、网络等暂时性错误最多重试 1 次，可配置 0～2 次。请求读取检查剩余总预算，限制响应体大小，并把截断响应等协议异常隔离到单个源。状态明确区分：
 
 - `ok`：请求与解析成功，并收录有效标题。
 - `empty`：成功解析，但无原始条目、无匹配或全部重复；原因另记。
@@ -70,7 +69,7 @@ python3 bin/collect.py --source techcrunch-ai --source baidu --timeout 5 --retri
 
 已见索引保留最多 14 天、10,000 个 URL 身份、每项 8 个哈希别名。来源暂时缺失或本轮只采部分源后，恢复出现的已见标题不会轻易再标为新增；没有“消失事件”推断。索引失效时明确说明退回上一有效快照重建。`changed` 表示标题或标签的指纹变化，仍需阅读原文才能判断是否出现实质进展。
 
-全部失败时，`comparison_skipped: true`，不推进成功快照、previous 或已见历史；旧内容不可当成本轮新消息。写入成功 checkpoint 后，扁平 JSON 和 Markdown 都是可恢复视图；中途中断后，下轮会从 checkpoint 恢复，避免已见索引超前导致静默漏报。单个输出文件有 24 MiB 上限。
+全部失败，或部分源失败且没有任何可用条目而已有旧快照时，`comparison_skipped: true`，不推进成功快照、previous 或已见历史；旧内容不可当成本轮新消息。写入成功 checkpoint 后，扁平 JSON 和 Markdown 都是可恢复视图；中途中断后，下轮会从 checkpoint 恢复，避免已见索引超前导致静默漏报。单个输出文件有 24 MiB 上限。
 
 ## 目录隔离
 

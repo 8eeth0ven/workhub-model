@@ -20,6 +20,8 @@ import re
 import socket
 import tempfile
 import time
+import threading
+import random
 import uuid
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlencode, urlsplit, urlunsplit, parse_qsl
@@ -432,7 +434,32 @@ def parse_baidu(raw: bytes) -> list[dict]:
     return result
 
 
-def fetch_source(source: dict, config: dict, now: datetime) -> tuple[list[dict], dict]:
+class GoogleRateGate:
+    """One in-flight Google request, minimum spacing, stop after rate limiting."""
+    def __init__(self, interval: float = 1.0):
+        self.lock = threading.Lock()
+        self.interval = interval
+        self.last_request = None
+        self.rate_limited = False
+
+
+def fetch_source(source: dict, config: dict, now: datetime, google_gate: GoogleRateGate | None = None) -> tuple[list[dict], dict]:
+    if google_gate is not None and source["id"].startswith("google-"):
+        with google_gate.lock:
+            if google_gate.rate_limited:
+                return [], {"id": source["id"], "name": source["name"], "section": source["section"],
+                            "state": "error", "fetched_count": 0, "accepted_count": 0,
+                            "http_status": None, "route": "not_attempted", "error_code": "rate_limited_deferred",
+                            "checked_at": iso(now), "attempts": [], "rejected": {}}
+            if google_gate.last_request is not None:
+                delay = google_gate.interval - (time.monotonic() - google_gate.last_request)
+                if delay > 0:
+                    time.sleep(delay)
+            result = fetch_source(source, config, now)
+            google_gate.last_request = time.monotonic()
+            if result[1]["http_status"] == 429:
+                google_gate.rate_limited = True
+            return result
     status = {"id": source["id"], "name": source["name"], "section": source["section"], "state": "error",
               "fetched_count": 0, "accepted_count": 0, "http_status": None, "route": "direct",
               "error_code": None, "checked_at": iso(now), "attempts": [], "rejected": {}}
@@ -454,11 +481,15 @@ def fetch_source(source: dict, config: dict, now: datetime) -> tuple[list[dict],
                 status.update(http_status=http_status, route=label, error_code=error.code)
                 status["attempts"].append({"route": label, "http_status": http_status, "result": error.code})
                 raw = None
+                # A rate limit applies to the upstream service, not just this route.
+                # Do not retry or switch proxy/direct on a 429.
+                if error.status == 429:
+                    return [], status
                 # Malformed documents and permanent client errors do not benefit from repeating the same request.
-                if error.code not in ("network_error", "timeout", "empty_response", "incomplete_response", "http_protocol_error") and error.status not in (429, 500, 502, 503, 504):
+                if error.code not in ("network_error", "timeout", "empty_response", "incomplete_response", "http_protocol_error") and error.status not in (500, 502, 503, 504):
                     break
                 if attempt < config["retries"]:
-                    time.sleep(min(0.25 * (attempt + 1), 0.5))
+                    time.sleep(min(0.5 * (2 ** attempt) + random.uniform(0.0, 0.25), 2.0))
         if raw is not None:
             break
     if raw is None:
@@ -711,7 +742,7 @@ def item_fingerprint(item: dict) -> str:
 
 def attach_delta(report: dict, previous: dict | None, index: dict | None) -> dict:
     now = timestamp(report["generated_at"])
-    unavailable = report["coverage"]["state"] == "unavailable"
+    unavailable = report["coverage"]["state"] == "unavailable" or report.get("reused_latest", False)
     previous_time = timestamp(previous["generated_at"]) if previous and valid_snapshot(previous, report["is_demo"]) else None
     has_baseline = bool(previous_time and now - timedelta(days=SEEN_DAYS) <= previous_time <= now)
     baseline_reason = "available" if has_baseline else ("missing" if previous_time is None else "future" if previous_time > now else "expired")
@@ -922,12 +953,13 @@ def persist(report: dict, data_dir: Path) -> None:
     old, older, seen = load_checkpoint(data_dir, report["is_demo"])
     story_history = load_story_history(data_dir, old, older, report)
     unavailable = report["coverage"]["state"] == "unavailable"
-    report["reused_latest"] = bool(unavailable and old)
+    retain = unavailable or bool(old and report["coverage"]["state"] == "partial" and not report["items"])
+    report["reused_latest"] = bool(retain and old)
     if report["reused_latest"]:
         report["previous_generated_at"] = old.get("generated_at")
-    report["published_latest"] = not unavailable
+    report["published_latest"] = not retain
     updated_seen = attach_delta(report, old, seen)
-    if unavailable:
+    if retain:
         # Recover usable flat mirrors from the last atomic checkpoint, without
         # advancing either baseline. The failed attempt remains separate.
         if old:
@@ -989,6 +1021,7 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, help="Private JSON configuration; no environment configuration is read")
     parser.add_argument("--data-dir", type=Path, default=ROOT / "data", help="Output directory")
+    parser.add_argument("--site-output-dir", type=Path, help="Build the dashboard into this directory after collection")
     parser.add_argument("--demo", action="store_true", help="Generate an explicitly fictional offline example")
     parser.add_argument("--proxy", help="Explicit HTTP(S) proxy for international sources; empty means direct")
     parser.add_argument("--timeout", type=float, help="Timeout seconds per request")
@@ -1019,12 +1052,44 @@ def main(argv=None) -> int:
             if args.demo:
                 report = demo_report(config, now)
             else:
+                # Rotate Google priority every four UTC hours to avoid starving the
+                # same sources when the upstream rate-limits partway through a run.
+                # A single Google task preserves that order regardless of lock fairness.
+                google_gate = GoogleRateGate()
+                indexed = list(enumerate(chosen))
+                google = [(i, source) for i, source in indexed if source["id"].startswith("google-")]
+                other = [(i, source) for i, source in indexed if not source["id"].startswith("google-")]
+                if google:
+                    offset = int(now.timestamp() // (4 * 60 * 60)) % len(google)
+                    google = google[offset:] + google[:offset]
                 with ThreadPoolExecutor(max_workers=config["workers"]) as pool:
-                    results = list(pool.map(lambda source: fetch_source(source, config, now), chosen))
+                    futures = {i: pool.submit(fetch_source, source, config, now, google_gate)
+                               for i, source in other}
+                    google_future = pool.submit(lambda: [(i, fetch_source(source, config, now, google_gate))
+                                                         for i, source in google])
+                    by_index = {i: future.result() for i, future in futures.items()}
+                    by_index.update(google_future.result())
+                    results = [by_index[i] for i in range(len(chosen))]
                 report = make_report(config, now, results)
             persist(report, data_dir)
+            # Keep collection and rendering in one lock so concurrent runs cannot
+            # render a different snapshot while this run is being committed.
+            output_dir = args.site_output_dir.expanduser().resolve() if args.site_output_dir else None
+            if output_dir is None and not args.demo and data_dir == (ROOT / "data").resolve():
+                output_dir = ROOT / "site"
+            dashboard_updated = False
+            if output_dir is not None:
+                try:
+                    spec = importlib.util.spec_from_file_location("workhub_ai_build", ROOT / "bin/build_data.py")
+                    builder = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(builder)
+                    builder.build(builder.load_data(data_dir), output_dir)
+                    dashboard_updated = True
+                except (OSError, ValueError, UnicodeError):
+                    print("Dashboard build failed; collected data was retained. Check the dashboard resources.", file=__import__("sys").stderr)
+                    return 2
         print(json.dumps({"state": report["coverage"]["state"], "items": len(report["items"]), "sources": len(report["sources"]),
-                          "is_demo": report["is_demo"], "reused_latest": report["reused_latest"], "run_id": report["run_id"], "delta_counts": report["delta"]["counts"]}, ensure_ascii=False))
+                          "is_demo": report["is_demo"], "reused_latest": report["reused_latest"], "dashboard_updated": dashboard_updated, "run_id": report["run_id"], "delta_counts": report["delta"]["counts"]}, ensure_ascii=False))
         return 2 if report["coverage"]["state"] == "unavailable" else 0
     except (OSError, ValueError, ZoneInfoNotFoundError) as error:
         # Avoid printing input paths, proxy credentials, remote response bodies or raw network errors.

@@ -18,9 +18,8 @@ python3 bin/build_data.py --data-dir demo/data
 ```sh
 cp config.example.json config.json
 python3 bin/collect.py --config config.json
-python3 bin/build_data.py
 ```
 
-首次采集建立基线。之后对照 `data/delta.json` 看变化，打开原文核实标题。`data/last-run.json` 记录来源掉线的情况。解读新闻缺失前，先核对该来源的采集状态。
+真实采集使用默认数据目录时，会在采集后自动构建看板；自定义数据目录可同时指定 `--site-output-dir`。构建失败会返回非零状态。首次采集建立基线。之后对照 `data/delta.json` 看变化，打开原文核实标题。`data/last-run.json` 记录来源掉线的情况。解读新闻缺失前，先核对该来源的采集状态。
 
 [采集与增量规则](docs/collector.md) · [简报提示词](prompts/daily-brief.md) · [定时配置示例](prompts/automation-card.md)
