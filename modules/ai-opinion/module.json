@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "ai-opinion",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "kind": "workhub-module",
   "name": {
     "zh-CN": "AI 产品舆情监控",
@@ -10,7 +10,8 @@
   "python": ">=3.10",
   "entrypoints": {
     "collect": "bin/collect.py",
-    "build": "bin/build_data.py"
+    "build": "bin/build_data.py",
+    "serve": "bin/server.py"
   },
   "site": {
     "entry": "site/index.html",
@@ -34,7 +35,12 @@
     "prompts/daily-brief.md",
     "prompts/daily-brief.en.md",
     "prompts/automation-card.md",
-    "prompts/automation-card.en.md"
+    "prompts/automation-card.en.md",
+    "bin/server.py",
+    "bin/provider_core/assessments.py",
+    "bin/provider_core/session_context.py",
+    "docs/service.md",
+    "docs/service.en.md"
   ],
   "runtime_excluded": [
     "data/",
@@ -48,7 +54,9 @@
     "data/seen-index.json",
     "data/.collection-state.json",
     "data/.collection-mode.json",
-    "data/story-history.json"
+    "data/story-history.json",
+    "data/ai-analysis.json",
+    "data/.ai-opinion-service.lock"
   ],
   "installation": {
     "executes_code": false,
