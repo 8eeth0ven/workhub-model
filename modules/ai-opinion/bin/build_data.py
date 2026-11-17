@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -13,6 +14,9 @@ import tempfile
 from urllib.parse import urlsplit
 
 MODULE = Path(__file__).resolve().parents[1]
+_spec = importlib.util.spec_from_file_location("_ai_story_groups", MODULE / "bin/story_groups.py")
+_story = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_story)
 SHANGHAI = dt.timezone(dt.timedelta(hours=8))
 MAX_BYTES = 5 * 1024 * 1024
 SECTIONS = {"domestic", "international", "hardware", "voices", "hot"}
@@ -29,7 +33,7 @@ def safe_url(value):
         url = urlsplit(value)
         if url.scheme not in {"http", "https"} or not url.hostname or url.username or url.password:
             return ""
-        if any(ord(c) < 32 for c in value):
+        if any(ord(c) < 32 for c in value) or any(c in value for c in '<>"\\'):
             return ""
         return value
     except ValueError:
@@ -109,7 +113,7 @@ def clean_report(raw):
     if (not isinstance(raw, dict) or raw.get("schema_version") != 1 or
             raw.get("module_id") != "ai-opinion" or not iso_date(raw.get("report_date"))):
         raise ValueError("unsupported-report")
-    items, seen = [], set()
+    items = []
     raw_items = raw.get("items", [])
     if not isinstance(raw_items, list):
         raise ValueError("invalid-items")
@@ -121,14 +125,11 @@ def clean_report(raw):
             continue
         url = safe_url(item.get("url"))
         section = item["section"]
-        # Only exact headlines/URLs within the same section collapse. Equal
-        # numbers or word tokens do not establish that two events are the same.
+        # Preserve raw identities for exact delta validation; group display
+        # cards separately without discarding source provenance.
         key = (section, url or re.sub(r"\s+", " ", title).casefold())
-        if key in seen:
-            continue
-        seen.add(key)
         terms = item.get("risk_terms", [])
-        items.append({
+        cleaned = {
             "id": safe_text(item.get("id"), 120) or hashlib.sha256(repr(key).encode()).hexdigest()[:16],
             "section": section, "title": title, "url": url,
             "source": safe_text(item.get("source"), 160),
@@ -137,7 +138,12 @@ def clean_report(raw):
             "time_basis": safe_text(item.get("time_basis"), 24),
             "risk": item.get("risk") if item.get("risk") in RISKS else "neutral",
             "risk_terms": [safe_text(x, 60) for x in terms[:12] if isinstance(x, str)] if isinstance(terms, list) else [],
-        })
+        }
+        mentions = item.get("mentions", [])
+        if isinstance(mentions, list):
+            cleaned["mentions"] = [mention for value in mentions[:100]
+                                   if (mention := _story.clean_mention(value))]
+        items.append(cleaned)
     sources = []
     raw_sources = raw.get("sources", [])
     if isinstance(raw_sources, list):
@@ -177,7 +183,76 @@ def clean_report(raw):
         "previous_generated_at": safe_text(raw.get("previous_generated_at"), 80),
     }
     result["delta"] = clean_delta(raw.get("delta"), result["run_id"], items)
+    result["_saved_groups"] = clean_saved_groups(raw.get("groups"), result)
     return result
+
+
+def clean_saved_groups(raw, report):
+    """Read bounded metadata from this snapshot, never a future index."""
+    if not isinstance(raw, list):
+        return {}
+    date = iso_date(report["report_date"])
+    cutoff = date - dt.timedelta(days=13)
+    result = {}
+    for group in raw[:2000]:
+        if not isinstance(group, dict) or not isinstance(group.get("member_ids"), list):
+            continue
+        members = group["member_ids"]
+        if not members or len(members) > 2000 or any(not safe_identifier(x) for x in members):
+            continue
+        value = group.get("history")
+        if not isinstance(value, dict) or not isinstance(value.get("observed_dates"), list):
+            continue
+        if len(value["observed_dates"]) > 14:
+            continue
+        dates = sorted(set(value["observed_dates"])) if all(isinstance(x, str) for x in value["observed_dates"]) else []
+        if (not dates or any(not iso_date(x) or not cutoff <= iso_date(x) <= date for x in dates)
+                or dates[-1] != report["report_date"]):
+            continue
+        first = value.get("first_recorded_date")
+        if not iso_date(first) or first > dates[0]:
+            continue
+        events = []
+        for event in value.get("change_events", [])[:32] if isinstance(value.get("change_events"), list) else []:
+            if not isinstance(event, dict) or event.get("date") not in dates:
+                continue
+            events.append({"date": event["date"], "generated_at": safe_text(event.get("generated_at"),80),
+                           "run_id": safe_identifier(event.get("run_id")), "title": safe_text(event.get("title"),600),
+                           "kind": "title_or_keyword_change"})
+        streak, cursor = 0, date
+        while cursor.isoformat() in dates:
+            streak += 1
+            cursor -= dt.timedelta(days=1)
+        history = {"observed_dates": dates, "first_recorded_date": first,
+                   "last_recorded_date": dates[-1], "observed_days": len(dates),
+                   "consecutive_days": streak, "change_events": events,
+                   "change_dates": sorted({x["date"] for x in events}), "window_days": 14,
+                   "scope": "recorded_dates", "history_complete": False}
+        change = group.get("change")
+        if change not in {"new", "changed", "unchanged", "baseline"}:
+            change = "baseline"
+        result[tuple(sorted(set(members)))] = {"id": safe_identifier(group.get("id")), "history": history, "change": change}
+    return result
+
+
+def enrich_reports(reports):
+    """Replay actual saved dates in order; historical views have no future."""
+    histories = {}
+    for report in sorted(reports, key=lambda x: (x["generated_at"], x["run_id"])):
+        mode = report["is_demo"]
+        groups, histories[mode] = _story.annotate_report(report, histories.get(mode))
+        saved = report.pop("_saved_groups", {})
+        for group in groups:
+            original = saved.get(tuple(sorted(set(group["member_ids"]))))
+            if original:
+                group["history"] = original["history"]
+                if original["id"]:
+                    group["id"] = original["id"]
+                if report["delta"]["valid"]:
+                    group["change"] = original["change"]
+        report["groups"] = groups
+        report["coverage"]["grouped_items"] = len(groups)
+    return reports
 
 
 def read_report(path):
@@ -189,7 +264,7 @@ def read_report(path):
 def load_data(data_dir, today=None):
     today = today or dt.datetime.now(SHANGHAI).date()
     cutoff = today - dt.timedelta(days=13)
-    days, diagnostics = {}, []
+    days, diagnostics, snapshots = {}, [], {}
     # Do not interpret unrelated files, Markdown, logs or other projects.
     for path in sorted(data_dir.glob("????-??-??.json")):
         date = iso_date(path.stem)
@@ -205,9 +280,10 @@ def load_data(data_dir, today=None):
             if report["coverage"]["state"] == "unavailable" and not report["items"]:
                 continue
             days[path.stem] = report
+            snapshots[report["run_id"] or report["generated_at"]] = report
         except (OSError, ValueError, UnicodeError):
             diagnostics.append({"report_date": path.stem, "code": "report-unreadable"})
-    for name in ("latest.json",):
+    for name in ("previous.json", "latest.json"):
         path = data_dir / name
         if not path.exists():
             continue
@@ -217,6 +293,7 @@ def load_data(data_dir, today=None):
                 continue
             date = iso_date(report["report_date"])
             if cutoff <= date <= today:
+                snapshots[report["run_id"] or report["generated_at"]] = report
                 current = days.get(report["report_date"])
                 if current is None or report["generated_at"] > current["generated_at"]:
                     days[report["report_date"]] = report
@@ -229,6 +306,15 @@ def load_data(data_dir, today=None):
             last_run = read_report(path)
         except (OSError, ValueError, UnicodeError):
             diagnostics.append({"code": "last-run-unreadable"})
+    days = {date: snapshots[report["run_id"] or report["generated_at"]] for date, report in days.items()}
+    enrich_reports(list(snapshots.values()))
+    if last_run:
+        matching = snapshots.get(last_run["run_id"] or last_run["generated_at"])
+        if matching:
+            last_run = matching
+        else:
+            last_run.pop("_saved_groups", None)
+            last_run["groups"] = []
     reports = list(days.values()) + ([last_run] if last_run else [])
     return {"schema_version": 1, "module_id": "ai-opinion", "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
             "calendar_date": today.isoformat(), "retention_days": 14,
@@ -275,6 +361,7 @@ def demo_data(today=None):
                               {"id": "demo-empty", "name": "演示 RSS B", "state": "empty", "fetched_count": 4, "accepted_count": 0, "empty_reason": "filtered"},
                               {"id": "demo-error", "name": "演示 RSS C", "state": "error", "fetched_count": 0, "accepted_count": 0, "error_code": "timeout"}]}
         days.append(clean_report(report))
+    enrich_reports(days)
     return {"schema_version": 1, "module_id": "ai-opinion", "generated_at": days[0]["generated_at"],
             "calendar_date": today.isoformat(), "retention_days": 14, "days": days,
             "last_run": days[0], "diagnostics": [], "is_demo": True}

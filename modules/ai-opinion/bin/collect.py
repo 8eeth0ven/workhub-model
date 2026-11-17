@@ -11,6 +11,7 @@ from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 import hashlib
 import html
+import importlib.util
 from http.client import HTTPException, IncompleteRead
 import json
 import os
@@ -28,6 +29,9 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
 ROOT = Path(__file__).resolve().parent.parent
+_story_spec = importlib.util.spec_from_file_location("workhub_ai_story_groups", ROOT / "bin/story_groups.py")
+_story_module = importlib.util.module_from_spec(_story_spec)
+_story_spec.loader.exec_module(_story_module)
 UTC = timezone.utc
 MAX_BYTES = 4 * 1024 * 1024
 USER_AGENT = "WorkhubAIOpinion/1.0 (public headline RSS reader)"
@@ -503,17 +507,24 @@ def fetch_source(source: dict, config: dict, now: datetime) -> tuple[list[dict],
 
 
 def make_report(config: dict, now: datetime, results: list[tuple[list[dict], dict]], demo: bool = False) -> dict:
-    seen, seen_urls, items, statuses = set(), set(), [], []
+    seen, seen_urls, items, statuses = {}, {}, [], []
     for rows, status in results:
         count = 0
         for row in rows:
             key = normalized(row["title"])
             url_key = item_aliases(row)[0]
-            if not key or key in seen or url_key in seen_urls:
+            duplicate = seen_urls.get(url_key) or seen.get(key)
+            if not key or duplicate is not None:
                 status["rejected"]["duplicate_title"] = status["rejected"].get("duplicate_title", 0) + 1
+                if duplicate is not None:
+                    mentions = duplicate.setdefault("mentions", [])
+                    mention = {name: row.get(name) for name in ("title", "url", "source", "section", "published_at", "observed_at", "time_basis", "risk", "risk_terms")}
+                    marker = (mention.get("url"), mention.get("source"), normalized(mention.get("title") or ""))
+                    if not any((m.get("url"), m.get("source"), normalized(m.get("title") or "")) == marker for m in mentions):
+                        mentions.append(mention)
                 continue
-            seen.add(key)
-            seen_urls.add(url_key)
+            seen[key] = row
+            seen_urls[url_key] = row
             items.append(row)
             count += 1
         status["accepted_count"] = count
@@ -556,7 +567,7 @@ def demo_report(config: dict, now: datetime) -> dict:
 
 
 def markdown(report: dict) -> str:
-    coverage, items = report["coverage"], report["items"]
+    coverage, items = report["coverage"], report.get("groups", report["items"])
     label = " · 虚构演示 / FICTIONAL DEMO" if report["is_demo"] else ""
     lines = [f"# AI 产品舆情日报 {report['report_date']}{label}", "", f"> 采集时间 {report['generated_at']} · RSS 精确过去 {report['window_days']} 天", "",
              f"源覆盖：{coverage['state']}；可用 {coverage['ok_sources']}，无新增 {coverage['empty_sources']}，失败 {coverage['error_sources']}。", "",
@@ -564,11 +575,20 @@ def markdown(report: dict) -> str:
              "## ⚠️ 负面线索", ""]
 
     def row(item: dict) -> str:
-        title = item["title"].replace("[", "\\[").replace("]", "\\]")
+        title = html.escape(item["title"]).replace("[", "\\[").replace("]", "\\]")
         url = item["url"].replace("(", "%28").replace(")", "%29").replace(" ", "%20")
         date = item["published_at"] or ("观察于 " + item["observed_at"])
-        origin = item["source"].replace("\n", " ").replace("\r", " ")
-        return f"- {ICONS[item['risk']]} [{title}]({url}) — {origin} · {date}"
+        origin = html.escape(item["source"]).replace("\n", " ").replace("\r", " ")
+        history = item.get("history", {})
+        repeat = (f" · 连续记录 {history['consecutive_days']} 天" if history.get("consecutive_days", 0) >= 2 else
+                  f" · 累计记录 {history['observed_days']} 天" if history.get("observed_days", 0) >= 2 else "")
+        sources = item.get("sources", [])
+        extra = ""
+        if len(sources) > 1:
+            links = [f"[{s.get('source') or '来源'}]({s['url'].replace('(', '%28').replace(')', '%29')})"
+                     for s in sources if s.get("url")]
+            extra = " · 同题来源：" + "、".join(links)
+        return f"- {ICONS[item['risk']]} [{title}]({url}) — {origin} · {date}{repeat}{extra}"
 
     negative = [i for i in items if i["risk"] in ("high", "medium")]
     if negative:
@@ -677,8 +697,13 @@ def item_aliases(item: dict) -> list[str]:
 
 
 def item_fingerprint(item: dict) -> str:
-    value = {"title": normalized(item.get("title", "")), "risk": item.get("risk", "neutral"),
-             "risk_terms": sorted({str(term).casefold() for term in item.get("risk_terms", [])})}
+    extra = item.get("mentions", [])
+    mentions = [item] + [m for m in extra if isinstance(m, dict)] if isinstance(extra, list) else [item]
+    risks = [m.get("risk", "neutral") for m in mentions]
+    risk = min(risks, key=lambda value: _story_module.RANK.get(value, 3))
+    terms = {str(term).casefold() for m in mentions for term in
+             (m.get("risk_terms", []) if isinstance(m.get("risk_terms"), list) else [])}
+    value = {"title": normalized(item.get("title", "")), "risk": risk, "risk_terms": sorted(terms)}
     # Source attribution, section, publication/observation times and ordering do
     # not establish a content change. This detects text/label changes, not facts.
     return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
@@ -794,21 +819,34 @@ def incremental_markdown(report: dict) -> str:
         return "\n".join(lines + ["采集不可用，未推进最近可用快照或增量基线。旧资料不能作为本轮新消息。", ""])
     if not delta["has_baseline"]:
         lines.append("当前比较窗口没有可用的成功基线；下列内容作为初始资料，不宣称是新增事件。")
-        selected = report["items"]
+        selected = report.get("groups", report["items"])
     else:
-        lines.extend([f"比较基线：{delta['baseline_generated_at']}；本轮新增 {delta['counts']['new']}，标题/标签变化 {delta['counts']['changed']}，重复 {delta['counts']['unchanged']}。", "", "来源缺失不代表事件消失；标题或标签变化也不证明现实事件有新进展。"])
-        selected = [item for item in report["items"] if item["change"] in ("new", "changed")]
+        cards = report.get("groups", report["items"])
+        counts = {kind: sum(item.get("change") == kind for item in cards) for kind in ("new", "changed", "unchanged")}
+        lines.extend([f"比较基线：{delta['baseline_generated_at']}；合并卡新增 {counts['new']}，标题/标签变化 {counts['changed']}，重复 {counts['unchanged']}。", "", "来源缺失不代表事件消失；标题或标签变化也不证明现实事件有新进展。"])
+        selected = [item for item in cards if item["change"] in ("new", "changed")]
     lines.append("")
     for item in sorted(selected, key=lambda row: (0 if row["risk"] == "high" else 1 if row["risk"] == "medium" else 2)):
-        title = item["title"].replace("[", "\\[").replace("]", "\\]")
+        title = html.escape(item["title"]).replace("[", "\\[").replace("]", "\\]")
         url = item["url"].replace("(", "%28").replace(")", "%29").replace(" ", "%20")
-        lines.append(f"- {ICONS[item['risk']]} [{title}]({url}) — {item['source']} · {item['change']}")
+        source = html.escape(item["source"]).replace("[", "\\[").replace("]", "\\]")
+        repeat = item.get("history", {})
+        note = f" · 累计记录 {repeat['observed_days']} 天" if repeat.get("observed_days", 0) > 1 else ""
+        links = []
+        for value in item.get("sources", []):
+            if not value.get("url"):
+                continue
+            name = html.escape(value.get("source") or "来源").replace("[", "\\[").replace("]", "\\]")
+            link = value["url"].replace("(", "%28").replace(")", "%29").replace(" ", "%20")
+            links.append(f"[{name}]({link})")
+        origins = " · 同题来源：" + "、".join(links) if len(links) > 1 else ""
+        lines.append(f"- {ICONS[item['risk']]} [{title}]({url}) — {source} · {item['change']}{note}{origins}")
     if not selected:
         lines.append("- 本轮没有可展开的新增或标题/标签变化；请同时检查来源覆盖。")
     return "\n".join(lines) + "\n"
 
 
-def write_usable_mirrors(report: dict, previous: dict | None, seen: dict, data_dir: Path) -> None:
+def write_usable_mirrors(report: dict, previous: dict | None, seen: dict, data_dir: Path, story_history: dict | None = None) -> None:
     if previous:
         atomic_write(data_dir / "previous.json", json.dumps(previous, ensure_ascii=False, indent=2) + "\n")
     text = json.dumps(report, ensure_ascii=False, indent=2) + "\n"
@@ -818,6 +856,8 @@ def write_usable_mirrors(report: dict, previous: dict | None, seen: dict, data_d
     atomic_write(data_dir / "最新日报.md", digest)
     atomic_write(data_dir / (report["report_date"] + ".md"), digest)
     atomic_write(data_dir / "seen-index.json", json.dumps(seen, ensure_ascii=False, indent=2) + "\n")
+    if story_history is not None:
+        atomic_write(data_dir / "story-history.json", json.dumps(story_history, ensure_ascii=False, indent=2) + "\n")
 
 
 def load_checkpoint(data_dir: Path, is_demo: bool) -> tuple[dict | None, dict | None, dict | None]:
@@ -847,9 +887,40 @@ def load_checkpoint(data_dir: Path, is_demo: bool) -> tuple[dict | None, dict | 
     return latest, None, seen
 
 
+def load_story_history(data_dir: Path, old: dict | None, older: dict | None, report: dict) -> dict:
+    """Use committed story history or bootstrap only from actual AI snapshots."""
+    checkpoint_path = data_dir / ".collection-state.json"
+    if checkpoint_path.exists():
+        checkpoint = read_state_json(checkpoint_path)
+        history = checkpoint.get("story_history")
+        if history is not None:
+            if (not _story_module.valid_history(history, report["is_demo"]) or
+                    history.get("run_id") != checkpoint["latest"]["run_id"]):
+                raise ValueError("story history checkpoint is invalid; preserve data and review it")
+            return history
+    observations = {}
+    for snapshot in (older, old):
+        if snapshot and valid_snapshot(snapshot, report["is_demo"]):
+            observations[snapshot["run_id"]] = snapshot
+    cutoff = timestamp(report["generated_at"]) - timedelta(days=14)
+    for path in data_dir.glob("????-??-??.json"):
+        try:
+            value = read_state_json(path)
+            if (valid_snapshot(value, report["is_demo"]) and value["report_date"] == path.stem and
+                    cutoff <= timestamp(value["generated_at"]) <= timestamp(report["generated_at"])):
+                observations[value["run_id"]] = value
+        except (OSError, ValueError):
+            continue
+    history = {"schema_version": 1, "module_id": MODULE_ID, "is_demo": report["is_demo"], "records": []}
+    for snapshot in sorted(observations.values(), key=lambda row: (row["generated_at"], row["run_id"])):
+        _, history = _story_module.annotate_report(snapshot, history)
+    return history
+
+
 def persist(report: dict, data_dir: Path) -> None:
     ensure_data_mode(data_dir, report["is_demo"], claim=True)
     old, older, seen = load_checkpoint(data_dir, report["is_demo"])
+    story_history = load_story_history(data_dir, old, older, report)
     unavailable = report["coverage"]["state"] == "unavailable"
     report["reused_latest"] = bool(unavailable and old)
     if report["reused_latest"]:
@@ -860,17 +931,19 @@ def persist(report: dict, data_dir: Path) -> None:
         # Recover usable flat mirrors from the last atomic checkpoint, without
         # advancing either baseline. The failed attempt remains separate.
         if old:
-            write_usable_mirrors(old, older, seen or {}, data_dir)
+            write_usable_mirrors(old, older, seen or {}, data_dir, story_history)
         elif not (data_dir / (report["report_date"] + ".json")).exists():
             atomic_write(data_dir / (report["report_date"] + ".json"), json.dumps(report, ensure_ascii=False, indent=2) + "\n")
             atomic_write(data_dir / (report["report_date"] + ".md"), markdown(report))
     else:
+        report["groups"], story_history = _story_module.annotate_report(report, story_history)
+        report["coverage"]["grouped_items"] = len(report["groups"])
         checkpoint = {"schema_version": 1, "module_id": MODULE_ID, "is_demo": report["is_demo"],
-                      "latest": report, "previous": old, "seen_index": updated_seen}
+                      "latest": report, "previous": old, "seen_index": updated_seen, "story_history": story_history}
         # One atomic checkpoint commits the successful report and seen index;
         # flat JSON/Markdown files are recoverable views for readers and tools.
         atomic_write(data_dir / ".collection-state.json", json.dumps(checkpoint, ensure_ascii=False, indent=2) + "\n")
-        write_usable_mirrors(report, old, updated_seen, data_dir)
+        write_usable_mirrors(report, old, updated_seen, data_dir, story_history)
     atomic_write(data_dir / "delta.json", json.dumps(report["delta"], ensure_ascii=False, indent=2) + "\n")
     atomic_write(data_dir / "增量简报.md", incremental_markdown(report))
     atomic_write(data_dir / "last-run.json", json.dumps(report, ensure_ascii=False, indent=2) + "\n")
@@ -887,7 +960,7 @@ def ensure_data_mode(data_dir: Path, is_demo: bool, claim: bool = False) -> None
         if stored["mode"] != mode:
             raise ValueError("demo and live collection require separate --data-dir directories")
     # Validate pre-marker data too. A failed first run has last-run but no latest.
-    reports = [p for p in data_dir.iterdir() if p.name in ("latest.json", "last-run.json", "previous.json", "delta.json", "seen-index.json", ".collection-state.json") or
+    reports = [p for p in data_dir.iterdir() if p.name in ("latest.json", "last-run.json", "previous.json", "delta.json", "seen-index.json", "story-history.json", ".collection-state.json") or
                re.fullmatch(r"\d{4}-\d{2}-\d{2}\.json", p.name)]
     if not marker.exists():
         for path in data_dir.iterdir():

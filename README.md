@@ -7,11 +7,13 @@
 | 模块 | 用途 |
 | --- | --- |
 | [车圈舆情](modules/auto-opinion/README.md) | 国内外车企新闻、理想汽车动态与热搜 |
-| [AI 产品舆情](modules/ai-opinion/README.md) | 与上次成功采集相比，哪些报道新增或变化 |
+| [AI 产品舆情](modules/ai-opinion/README.md) | 同题去重、跨日出现标注与新增变化 |
 | [算力产业链](modules/compute-search/README.md) | GPU 目录报价、厂商公告及七个产业环节 |
 | [产业知识图谱](modules/industry-atlas/README.md) | 跨产业整理作用、不同产地、上下游证据与历史变更 |
 | [代码与图检索](modules/coding-graph/README.md) | AI 原生工程发布采样、17 份进阶资料与本机 Python 静态图 |
 | [英语成片学习](modules/english-slices/README.md) | 词表导入、连续列表、点播和原创生活句子 |
+
+在新版 Workhub 左侧“模块”点击“安装并接入”，即可自动下载、校验并准备入口；下方命令行方式仍可独立使用。
 
 Python 3.10+。在仓库根目录安装到新目录，或从 [Releases](https://github.com/8eeth0ven/workhub-model/releases) 下载独立 ZIP。
 

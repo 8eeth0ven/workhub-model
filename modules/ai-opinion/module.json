@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "ai-opinion",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "kind": "workhub-module",
   "name": {
     "zh-CN": "AI 产品舆情监控",
@@ -24,6 +24,7 @@
     "docs/overview.svg",
     "bin/collect.py",
     "bin/build_data.py",
+    "bin/story_groups.py",
     "config.example.json",
     "site.template.html",
     "site/design-system.css",
@@ -46,7 +47,8 @@
     "data/增量简报.md",
     "data/seen-index.json",
     "data/.collection-state.json",
-    "data/.collection-mode.json"
+    "data/.collection-mode.json",
+    "data/story-history.json"
   ],
   "installation": {
     "executes_code": false,

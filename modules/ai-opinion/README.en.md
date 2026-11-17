@@ -2,7 +2,7 @@
 
 # AI product news
 
-Track AI products, models, hardware and public statements. Compare each run with the last usable snapshot to read new or changed stories first.
+Track AI products, models, hardware and public statements. Compare each run with the last usable snapshot to read new or changed stories first. Related reports share one card with all source links. Recurrence labels count dates in local saved reports, and a snapshot with no new or changed cards opens in the full view.
 
 ![Current headlines, Previous snapshot, New and changed](docs/overview.svg)
 

@@ -2,6 +2,10 @@
 
 # Download and connect feature modules
 
+With current Workhub, open **Modules** in the workspace sidebar and choose **Install & connect**. Workhub downloads a fixed release, checks its pinned digest, prepares the page and connects it, with progress and retry controls. English starts or reuses a verified local service. Personal data is preserved; installation does not collect news, create schedules or call a model.
+
+The standalone CLI workflow below remains available and copies source only; its installation command does not run module code.
+
 `workhub-model` contains independently downloadable Workhub feature modules. It is not a model-weight repository and does not replace Workhub. Download the repository, then install the module from that local checkout. Installation copies explicitly listed source files; it does not collect news, run scripts, create scheduled tasks or make network requests.
 
 The distribution tool requires Python 3.10 or newer and uses only the standard library.

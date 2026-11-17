@@ -24,7 +24,7 @@ MAX_MODULE_BYTES = 40 * 1024 * 1024
 MODULE_ID = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
 PRIVATE_NAMES = {".env", "llm.json", "glm.json", "credentials.json", "session.json", "config.json",
                  "module-install.json", "library.json", "atlas.json", "frontier.json", "frontier-last-run.json", "last-run.json", "latest.json", "最新日报.md",
-                 "previous.json", "delta.json", "增量简报.md", "seen-index.json",
+                 "previous.json", "delta.json", "增量简报.md", "seen-index.json", "story-history.json",
                  ".collection-state.json", ".collection-mode.json"}
 EXCLUDED_PARTS = {"data", "logs", "runtime", "exports", "reports", "__pycache__", "node_modules",
                   "tests", "test", "__tests__", "test-fixtures"}

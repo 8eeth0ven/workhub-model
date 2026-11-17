@@ -7,11 +7,13 @@ Independent local modules for public updates, industry knowledge and learning. I
 | Module | Purpose |
 | --- | --- |
 | [Automotive news](modules/auto-opinion/README.en.md) | Carmaker headlines, a Li Auto section and automotive trends |
-| [AI product news](modules/ai-opinion/README.en.md) | Reports added or changed since the previous successful collection |
+| [AI product news](modules/ai-opinion/README.en.md) | Deduplicated stories, cross-day recurrence and incremental changes |
 | [Compute value chain](modules/compute-search/README.en.md) | GPU catalog rates, vendor announcements and seven industry segments |
 | [Industry knowledge atlas](modules/industry-atlas/README.en.md) | Cross-industry purposes, location roles, relationship evidence and change history |
 | [Code & graph learning](modules/coding-graph/README.en.md) | AI-native release samples, 17 advanced resources and local Python static graphs |
 | [English in slices](modules/english-slices/README.en.md) | Personal-list imports, continuous browsing, speech and original everyday phrases |
+
+In current Workhub, open **Modules** in the sidebar and choose **Install & connect** to download, verify and prepare an entry automatically. The standalone CLI below remains available.
 
 Use Python 3.10 or later. From the repository root, install to a new folder, or download a standalone ZIP from [Releases](https://github.com/8eeth0ven/workhub-model/releases).
 
