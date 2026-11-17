@@ -16,16 +16,13 @@ python3 bin/collect.py --config config.json
 
 默认真实采集结束后在同一采集锁内构建本模块 `site/`，即使全源失败也更新失败提示；采集失败或构建失败返回非零状态。自定义 `--data-dir` 不会隐式覆盖默认站点；可指定 `--site-output-dir` 同步构建，或手动给构建器传相同的 `--data-dir`。真实配置、日报、日志和生成的网页属于本机运行资料，不随源码或 ZIP 发布。
 
-## 25 个采集入口
+## 默认采集入口
 
-| 分类 | Google News 查询组数 |
-| --- | ---: |
-| 国内产品与大模型 | 7 |
-| 国际 AI 产品 | 7 |
-| AI 硬件与机器人 | 2 |
-| AI 人物发言 | 7 |
+默认直接采集量子位、IT之家、OpenAI News、Google AI Blog、Claude Code Releases、Hugging Face Blog、NVIDIA Blog、MIT Technology Review AI、TechCrunch AI 和百度 AI 热搜，共 10 个入口。原有 23 组 Google News 查询保留为可选来源，不再默认调用；用 `--source google-01` 等明确指定，或在本机配置 `enabled_sources`。既有显式来源列表仍按原选择执行。
 
-另有 TechCrunch AI RSS 和百度 AI 相关热搜，共 25 个入口。人物查询把人名、AI 主题和发言词分别分组，减少只命中泛化“表态”的无关新闻；关键词无法保证话题完整或相关性绝对准确。
+量子位、IT之家与百度直连，海外来源按已配置代理或显式直连；原有代理故障时直连回退设置保持不变。IT之家与 NVIDIA 为综合新闻源，仅收录标题中含 AI 或相关模型、技术名称的文章；标题关键词可能漏掉未明确提及的报道，也可能保留相关性不足的结果。来源状态 empty 表示请求解析成功但无可收录条目；其中 duplicate_only 表示条目均已由其他来源收录，均不等于请求失败。
+
+国内源默认归入国内 AI，海外源默认归入国际 AI；仅当标题明确出现硬件关键词，或同时出现人物姓名与发言词时，才分类到硬件或人物栏目。标题分类是线索，不保证完整。发布方博客和软件发行 Atom 无法替代所有媒体对厂商、负面事件、国内产品和人物言论的报道；各来源覆盖与时效各不相同，不能保证信息收全。
 
 默认只保留发布日期位于 UTC 精确过去 48 小时的 RSS 新闻，每源最多 25 条。缺失时区、无法解析、未来或窗外日期分别拒收，不把未知时间当作今天。百度热搜缺乏可靠发布日期，使用 `published_at: null`、`observed_at` 和 `time_basis: observed` 记录观察时间。
 
@@ -35,7 +32,7 @@ python3 bin/collect.py --config config.json
 
 默认直连，不读取环境代理。需要代理时在私有 `config.json` 中填写 `proxy`，或显式传 `--proxy`；百度始终直连。默认不在代理故障时悄悄切换直连，只有 `proxy_fallback_direct: true` 才允许回退。
 
-配置支持 `window_days`、`timezone`、`workers`、`timeout_seconds`、`retries`、`proxy`、`proxy_fallback_direct`、`max_items_per_source`，也可用 `enabled_sources` 选择源。Google ID 为 `google-01` 至 `google-23`，其余是 `techcrunch-ai`、`baidu`。
+配置支持 `window_days`、`timezone`、`workers`、`timeout_seconds`、`retries`、`proxy`、`proxy_fallback_direct`、`max_items_per_source`，也可用 `enabled_sources` 选择源。Google 搜索 ID 为 `google-01` 至 `google-23`；默认源 ID 为 `qbitai`、`ithome`、`openai-news`、`googleai-blog`、`claude-code-releases`、`huggingface-blog`、`nvidia-blog`、`mit-tech-review-ai`、`techcrunch-ai`、`baidu`。
 
 ```sh
 python3 bin/collect.py --source techcrunch-ai --source baidu --timeout 5 --retries 0

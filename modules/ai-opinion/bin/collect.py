@@ -211,6 +211,24 @@ HOT_WORDS = ['AI',
 ICONS = {"high": "🔴", "medium": "🟡", "positive": "🟢", "neutral": "⚪"}
 
 
+# Broad news feeds need title-level filtering; specialized AI feeds do not.
+# Titles alone are imperfect: relevant stories without an explicit term can be missed.
+BROAD_AI_TERMS = (
+    "AI", "artificial intelligence", "machine learning", "deep learning", "large language model", "LLM",
+    "generative AI", "foundation model", "neural network", "AI agent", "AI model", "chatbot", "robotics", "humanoid robot", "embodied AI",
+    "OpenAI", "ChatGPT", "GPT", "Claude", "Anthropic", "DeepSeek", "Gemini", "Copilot", "Hugging Face",
+    "Qwen", "Kimi", "GLM", "MiniMax", "Sora", "Perplexity", "Grok", "Llama", "Mistral", "AIGC",
+    "人工智能", "大模型", "机器学习", "深度学习", "生成式", "智能体", "多模态", "人形机器人", "具身智能",
+    "豆包", "通义千问", "文心一言", "智谱", "月之暗面", "可灵", "讯飞星火", "腾讯混元", "机器人", "算力",
+)
+VOICE_PEOPLE = (
+    "马斯克", "奥特曼", "黄仁勋", "梁文锋", "杨植麟", "王兴兴", "李彦宏", "周鸿祎", "王小川", "扎克伯格", "贝索斯", "库克",
+    "Elon Musk", "Sam Altman", "Jensen Huang", "Sundar Pichai", "Bill Gates", "Mark Zuckerberg", "Jeff Bezos", "Tim Cook", "Dario Amodei",
+)
+VOICE_CUES = ("表示", "称", "发言", "发声", "谈", "观点", "演讲", "访谈", "采访", "回应", "警告", "says", "said", "warns", "warned", "speech", "interview", "remarks")
+HARDWARE_CUES = ("AI hardware", "AI glasses", "AI wearable", "humanoid robot", "humanoid robotics", "robotics", "embodied AI", "AI芯片", "AI 芯片", "人工智能芯片", "人形机器人", "具身智能", "AI眼镜", "AI 眼镜", "机器人", "智能硬件")
+DEFAULT_FEED_IDS = frozenset({"qbitai", "ithome", "openai-news", "googleai-blog", "huggingface-blog", "nvidia-blog", "mit-tech-review-ai", "claude-code-releases", "techcrunch-ai", "baidu"})
+
 class FetchFailure(Exception):
     def __init__(self, code: str, status: int | None = None):
         super().__init__(code)
@@ -225,6 +243,17 @@ def term_matches(text: str, term: str) -> bool:
     if re.fullmatch(r"[a-z0-9 -]+", term, re.I):
         return re.search(r"(?<![A-Za-z0-9])" + re.escape(term) + r"(?![A-Za-z0-9])", text, re.I) is not None
     return term.casefold() in text.casefold()
+
+
+def feed_section(source: dict, title: str) -> str:
+    """Conservative title routing for the new feeds, without guessing missing facts."""
+    if not source.get("classify_title"):
+        return source["section"]
+    if any(term_matches(title, person) for person in VOICE_PEOPLE) and any(term_matches(title, cue) for cue in VOICE_CUES):
+        return "voices"
+    if any(term_matches(title, cue) for cue in HARDWARE_CUES):
+        return "hardware"
+    return source["section"]
 
 
 def classify(title: str) -> tuple[str, list[str]]:
@@ -309,17 +338,30 @@ def sources(config: dict) -> list[dict]:
         params = urlencode({"q": query + f" when:{config['window_days']}d", "hl": "zh-CN", "gl": "CN", "ceid": "CN:zh-Hans"})
         result.append({"id": f"google-{n:02d}", "name": "Google News · " + query, "section": section,
                        "url": "https://news.google.com/rss/search?" + params, "kind": "rss", "international": True})
-    result.extend([
-        {"id": "techcrunch-ai", "name": "TechCrunch AI", "section": "international", "url": "https://techcrunch.com/category/artificial-intelligence/feed/", "kind": "rss", "international": True},
-        {"id": "baidu", "name": "百度 AI 相关热搜", "section": "hot", "url": "https://top.baidu.com/api/board?platform=wise&tab=realtime", "kind": "baidu", "international": False},
-    ])
+    # Direct publisher sources reduce dependence on a single search provider.
+    # The "international" flag controls the user's explicit proxy routing.
+    feeds = [
+        ("qbitai", "量子位", "domestic", "https://www.qbitai.com/feed", False, False),
+        ("ithome", "IT之家", "domestic", "https://www.ithome.com/rss/", False, True),
+        ("openai-news", "OpenAI News", "international", "https://openai.com/news/rss.xml", True, False),
+        ("googleai-blog", "Google AI Blog", "international", "https://blog.google/innovation-and-ai/technology/ai/rss/", True, False),
+        ("claude-code-releases", "Claude Code Releases", "international", "https://github.com/anthropics/claude-code/releases.atom", True, False),
+        ("huggingface-blog", "Hugging Face Blog", "international", "https://huggingface.co/blog/feed.xml", True, False),
+        ("nvidia-blog", "NVIDIA Blog", "international", "https://blogs.nvidia.com/feed/", True, True),
+        ("mit-tech-review-ai", "MIT Technology Review AI", "international", "https://www.technologyreview.com/topic/artificial-intelligence/feed", True, False),
+        ("techcrunch-ai", "TechCrunch AI", "international", "https://techcrunch.com/category/artificial-intelligence/feed/", True, False),
+    ]
+    result.extend({"id": id, "name": name, "section": section, "url": url, "kind": "rss",
+                   "international": international, "filter_ai": filter_ai, "classify_title": True}
+                  for id, name, section, url, international, filter_ai in feeds)
+    result.append({"id": "baidu", "name": "百度 AI 相关热搜", "section": "hot", "url": "https://top.baidu.com/api/board?platform=wise&tab=realtime", "kind": "baidu", "international": False})
     selected = config.get("enabled_sources")
+    ids = {s["id"] for s in result}
     if selected is not None:
-        ids = {s["id"] for s in result}
         if (not isinstance(selected, list) or not selected or any(not isinstance(i, str) or i not in ids for i in selected)):
             raise ValueError("enabled_sources must contain known source IDs")
-        result = [s for s in result if s["id"] in selected]
-    return result
+        return [source for source in result if source["id"] in selected]
+    return [source for source in result if source["id"] in DEFAULT_FEED_IDS]
 
 
 def read_response(source: dict, proxy: str, timeout: float) -> tuple[bytes, int]:
@@ -509,6 +551,9 @@ def fetch_source(source: dict, config: dict, now: datetime, google_gate: GoogleR
         if any(term_matches(title, word) for word in NOISE):
             reject("excluded_noise")
             continue
+        if source.get("filter_ai") and not any(term_matches(title, word) for word in BROAD_AI_TERMS):
+            reject("not_ai_related")
+            continue
         if source["kind"] == "baidu":
             if not any(term_matches(title, word) for word in HOT_WORDS):
                 reject("not_ai_related")
@@ -522,7 +567,7 @@ def fetch_source(source: dict, config: dict, now: datetime, google_gate: GoogleR
             time_basis = "published"
         risk, terms = classify(title)
         item = {"id": hashlib.sha256((normalized(title) + "\0" + link).encode()).hexdigest()[:20],
-                "section": source["section"], "title": title, "url": link, "source": row["source"][:200],
+                "section": feed_section(source, title), "title": title, "url": link, "source": row["source"][:200],
                 "published_at": published_at, "observed_at": iso(now), "time_basis": time_basis,
                 "risk": risk, "risk_terms": terms}
         if source["kind"] == "baidu" and isinstance(row.get("rank"), (str, int)):

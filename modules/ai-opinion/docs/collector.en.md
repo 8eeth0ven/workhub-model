@@ -16,9 +16,13 @@ python3 bin/collect.py --config config.json
 
 Live collection with the default `data/` builds the module `site/` under the same collection lock, including the failure status after all inputs fail. Collection or build failure exits nonzero. A custom `--data-dir` never implicitly overwrites the default site; pass `--site-output-dir` for an automatic build, or use the same `--data-dir` with the builder. Real configuration, reports, logs and generated pages are local runtime material, excluded from source and ZIP publication.
 
-## Twenty-five inputs
+## Default sources
 
-There are 23 Google News query groups: seven domestic-product/model groups, seven international-product groups, two hardware/robotics groups and seven AI-personality statement groups. TechCrunch AI RSS and filtered Baidu trends bring the total to 25. Statement queries group the person, AI context and speaking terms separately to reduce unrelated generic statements; keyword relevance is still heuristic.
+The ten default inputs are QbitAI, IT Home, OpenAI News, Google AI Blog, Claude Code Releases, Hugging Face Blog, NVIDIA Blog, MIT Technology Review AI, TechCrunch AI and Baidu AI trends. The original 23 Google News search groups remain opt-in using `--source google-01` and similar IDs or an `enabled_sources` configuration. Existing explicit source selections remain valid.
+
+QbitAI, IT Home and Baidu connect directly; international feeds use the explicitly configured proxy or direct routing. IT Home and NVIDIA are general feeds filtered by AI or model terms in the title. Headline matching can miss relevant material or include an unrelated match; dedicated AI feeds are not subjected to this additional filter. An empty state means the request parsed successfully but had no eligible items; duplicate_only specifically means matching items were already collected. Neither is a failed request.
+
+Domestic feeds default to domestic AI, and international feeds to international AI. An item is routed to hardware only on an explicit hardware term, or to statements only when a person's name and a speech cue both occur. This is a heuristic, not complete classification. Publisher blogs and software release feeds do not replace independent reporting about every company, negative event, local product or public statement; no set of feeds guarantees comprehensive coverage.
 
 RSS items must have a timezone-aware publication date in the exact previous 48 hours. Unknown, future and out-of-window dates are rejected separately. Each source accepts at most 25 items. Baidu trends lack a trustworthy publication date, so they use `published_at: null`, `observed_at` and `time_basis: observed`.
 
@@ -28,7 +32,7 @@ Latin keywords use boundaries, preventing `AI` from matching inside `said` or `t
 
 Direct access is the default; ambient proxy variables are ignored. Configure a private `proxy` or pass `--proxy` explicitly. Baidu remains direct. Proxy failure does not silently switch routes unless `proxy_fallback_direct: true` is explicitly configured.
 
-Settings include `window_days`, `timezone`, `workers`, `timeout_seconds`, `retries`, `proxy`, `proxy_fallback_direct` and `max_items_per_source`. Optional `enabled_sources` selects known IDs: `google-01` through `google-23`, `techcrunch-ai`, and `baidu`.
+Settings include `window_days`, `timezone`, `workers`, `timeout_seconds`, `retries`, `proxy`, `proxy_fallback_direct` and `max_items_per_source`. Optional `enabled_sources` selects known IDs: `google-01` through `google-23` and the default feed IDs `qbitai`, `ithome`, `openai-news`, `googleai-blog`, `claude-code-releases`, `huggingface-blog`, `nvidia-blog`, `mit-tech-review-ai`, `techcrunch-ai`, and `baidu`.
 
 ```sh
 python3 bin/collect.py --source techcrunch-ai --source baidu --timeout 5 --retries 0

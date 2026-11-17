@@ -4,6 +4,8 @@
 
 Track AI products, models, hardware and public statements. Compare each run with the last usable snapshot to read new or changed stories first. Related reports share one card with all source links. Recurrence labels count dates in local saved reports, and a snapshot with no new or changed cards opens in the full view.
 
+The default inputs combine domestic and international AI feeds, publisher blogs and Baidu trends. Google News search is optional; see the collection guide for source and filter limits.
+
 ![Current headlines, Previous snapshot, New and changed](docs/overview.svg)
 
 Build the offline sample in this module directory using Python 3.10+, then open `site/index.html`.
