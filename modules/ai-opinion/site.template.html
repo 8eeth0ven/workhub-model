@@ -245,7 +245,9 @@
     reload.hidden=!llmHadCollect||c!=='completed';
     $('llm-summary-status').textContent=llmOffline?t('llmOffline'):llmState?`${t('llmCollectStatus')}: ${t(llmStatusName(c))} · ${t('llmAnalysisStatus')}: ${t(llmStatusName(a))}`:'';
     $('llm-model').textContent=llmState?.model?.configured?`${t('llmModel')}: ${text(llmState.model.provider)} ${text(llmState.model.model)}`:llmState?t('llmModelMissing'):'';
-    let notice=llmOffline?t('llmOffline'):llmNotice?t(llmNotice):!llmState?.snapshot?.run_id&&llmState?t('llmNoSnapshot'):llmState?.analysis?.stale?t('llmStale'):(c==='failed'||a==='failed')?t('llmTryAgain'):reload.hidden?'':t('llmUpdated');
+    const failures=[];if(c==='failed')failures.push([t('llmCollectStatus'),text(llmState?.collection?.error).slice(0,300)||t('llmTryAgain')]);if(a==='failed')failures.push([t('llmAnalysisStatus'),text(llmState?.analysis?.error).slice(0,300)||t('llmTryAgain')]);
+    const failedError=failures.length>1?failures.map(([label,message])=>label+': '+message).join(' · '):failures[0]?.[1]||'';
+    let notice=llmOffline?t('llmOffline'):failures.length?failedError:llmNotice?t(llmNotice):!llmState?.snapshot?.run_id&&llmState?t('llmNoSnapshot'):llmState?.analysis?.stale?t('llmStale'):reload.hidden?'':t('llmUpdated');
     $('llm-status').textContent=notice;
     const result=$('llm-result');result.replaceChildren();const data=llmState?.analysis?.result;
     if(!data||typeof data!=='object'){if(llmState)result.append(el('p','llm-note',t('llmNotRun')));return;}
